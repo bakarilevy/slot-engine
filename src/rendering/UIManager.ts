@@ -1,0 +1,223 @@
+import { GCContainer } from '../types/GalaceanTypes.js';
+import { GameState } from '../core/GameState.js';
+import { GameEvents } from '../events/GameEvents.js';
+import { GameConfig } from '../core/GameConfig.js';
+import { type IResizeable, type IUIConfig } from '../types/index.js';
+import { UIFactory } from './UIFactory.js';
+import { BalanceDisplay } from './BalanceDisplay.js';
+import { BetControls } from './BetControls.js';
+import { SpinButton } from './SpinButton.js';
+import { WinPopup } from './WinPopup.js';
+import { AutoplayManager } from '../features/AutoplayManager.js';
+import { Button } from './Button.js';
+import { GCText } from '../types/GalaceanTypes.js';
+
+
+export interface IUIManagerOptions {
+  config: GameConfig;
+  state: GameState;
+  events: GameEvents;
+  container: GCContainer;   // The main UI container (added to stage)
+  uiConfig?: IUIConfig;
+}
+
+export class UIManager implements IResizeable {
+  private config: GameConfig;
+  private state: GameState;
+  private events: GameEvents;
+  private container: GCContainer;
+  private uiConfig: IUIConfig;
+  private scale: number = 1;
+  private autoplayManager: AutoplayManager | null = null;
+
+  // UI Components
+  public balanceDisplay: BalanceDisplay;
+  public betControls: BetControls;
+  public spinButton: SpinButton;
+  public winPopup: WinPopup;
+  public autoplayBtn: Button;
+  public fastSpinBtn: Button;
+  public fullscreenButton: Button;
+  public autoplayRemainingText: GCText;
+
+  // Cleanup listeners
+  private listeners: (() => void)[] = [];
+
+  constructor(options: IUIManagerOptions) {
+    this.config = options.config;
+    this.state = options.state;
+    this.events = options.events;
+    this.uiConfig = options.uiConfig || {};
+
+    // Create main container
+    this.container = UIFactory.createContainer(options.container);
+
+    // Initialize components
+    this.balanceDisplay = new BalanceDisplay(
+      this.container,
+      this.state,
+      this.uiConfig
+    );
+
+    this.betControls = new BetControls(
+      this.container,
+      this.state,
+      this.uiConfig
+    );
+
+    this.spinButton = new SpinButton(
+      this.container,
+      this.state,
+      this.uiConfig
+    );
+
+    this.winPopup = new WinPopup(
+      this.container,
+      this.state,
+      this.uiConfig
+    );
+
+    this.autoplayBtn = new Button(
+      this.container,
+      { defaultTexture: 'btn_autoplay', elastic: true },
+      60, 60
+    );
+
+    // Adjust relative to the spin button
+    this.autoplayBtn.setPosition(-80, 20);
+
+    // Fast Spin toggle
+    this.fastSpinBtn = new Button(
+      this.container,
+      { defaultTexture: 'btn_fastspin_off', elastic: true },
+      40, 40
+    );
+    this.fastSpinBtn.setPosition(-140, 20);
+
+    // Autoplay remaining text
+    this.autoplayRemainingText = UIFactory.createText('', {
+      fontSize: 16,
+      fontFamily: 'Arial',
+      fill: 0xffffff,
+      align: 'center',
+    }, this.container);
+    this.autoplayRemainingText.entity.transform.position.x = -80;
+    this.autoplayRemainingText.entity.transform.position.y = -30;
+
+    // Fullscreen Button
+    this.fullscreenButton = new Button(
+      this.container,
+      {
+        defaultTexture: 'btn_fullscreen',
+        hoverTexture: 'btn_fullscreen_hover',
+        pressedTexture: 'btn_fullscreen_pressed',
+        elastic: true,
+        scale: 0.8,
+      },
+      40, 40
+    );
+    this.fullscreenButton.setPosition(120 / 2 - 50, -120 / 2 + 50);
+    this.fullscreenButton.onClick(() => {
+      this.events.emit('ui:toggleFullscreen', {});
+    });
+
+    // Wire up events
+    this.wireEvents();
+  }
+
+  setAutoplayManager(manager: AutoplayManager): void {
+    this.autoplayManager = manager;
+    // Wire up button clicks
+    this.autoplayBtn.onClick(() => {
+      if (this.autoplayManager && !this.autoplayManager.isActive()) {
+        // Show a popup to set number of spins 
+        const spins = 10; // could be configurable
+        this.autoplayManager.start();
+      } else {
+        this.autoplayManager?.stop();
+      }
+    });
+
+    this.fastSpinBtn.onClick(() => {
+      const newVal = !this.state.isFastSpin;
+      this.state.isFastSpin = newVal;
+      this.fastSpinBtn.setTexture(newVal ? 'btn_fastspin_on' : 'btn_fastspin_off');
+    });
+
+    // Listen to autoplay state changes
+    this.state.on('autoplayRemaining', (remaining) => {
+      this.autoplayRemainingText.text = remaining > 0 ? `${remaining}` : '';
+    });
+
+    this.state.on('isAutoplayActive', (active) => {
+      this.autoplayBtn.setTexture(active ? 'btn_autoplay_active' : 'btn_autoplay');
+    });
+  }
+
+  /**
+   * Resize callback (from Renderer).
+   */
+  onResize(width: number, height: number, scale: number): void {
+    this.scale = scale;
+    // Position components based on the viewport.
+    // For simplicity, we'll place them at fixed relative positions.
+    // The host can override via config.
+
+    // Balance: top-left
+    this.balanceDisplay.setPosition(-width / 2 + 50, -height / 2 + 50);
+
+    // Bet controls: bottom-left
+    this.betControls.setPosition(-width / 2 + 50, height / 2 - 80);
+
+    // Spin button: bottom-center
+    this.spinButton.setPosition(0, height / 2 - 60);
+
+    // Win popup: center
+    this.winPopup.setPosition(0, 0);
+
+    this.fullscreenButton.setPosition(width / 2 - 50, -height / 2 + 50);
+  }
+
+  /**
+   * Get the main container.
+   */
+  getContainer(): GCContainer {
+    return this.container;
+  }
+
+  /**
+   * Destroy UI and clean up.
+   */
+  destroy(): void {
+    for (const cleanup of this.listeners) {
+      cleanup();
+    }
+    this.listeners = [];
+    this.container.destroy();
+    this.fullscreenButton.destroy();
+  }
+
+  private wireEvents(): void {
+    // Update spin button state when spinning starts/ends
+    const spinStartCleanup = this.events.on('spin:start', () => {
+      this.spinButton.setSpinning(true);
+    });
+    this.listeners.push(spinStartCleanup);
+
+    const spinEndCleanup = this.events.on('spin:end', () => {
+      this.spinButton.setSpinning(false);
+    });
+    this.listeners.push(spinEndCleanup);
+
+    // Show win popup on win
+    const winCleanup = this.events.on('win', (data) => {
+      if (data.amount > 0) {
+        this.winPopup.show(data.amount);
+      }
+    });
+    this.listeners.push(winCleanup);
+
+    // Update bet controls when bet changes (already handled internally)
+    // Update balance when it changes (already handled internally)
+  }
+}
