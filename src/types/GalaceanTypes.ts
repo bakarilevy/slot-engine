@@ -17,16 +17,15 @@ import {
   Engine,
   Canvas,
   Sprite,
-  FontSizeMode,
   TextRenderer,
   FontStyle,
-  FontVariant,
-  FontWeight,
   OverflowMode,
-  HitResult
+  HitResult,
+  Font,
+  TextHorizontalAlignment
 } from '@galacean/engine';
-import { LottieComponent } from '@galacean/engine-lottie';
-import { SkeletonAnimationComponent, SkeletonData } from '@galacean/engine-spine';
+import { LottieAnimation } from '@galacean/engine-lottie';
+import { SkeletonData } from '@esotericsoftware/spine-core';
 
 // Re-export Vector3 for use in other modules
 export { Vector3 };
@@ -142,18 +141,26 @@ export class GCContainer {
   
   set alpha(value: number) {
     // Set alpha on all renderers in this container
-    const renderers = this.entity.getComponentsIncludingChildren(SpriteRenderer);
+    const renderers: SpriteRenderer[] = [];
+    this.entity.getComponentsIncludeChildren(SpriteRenderer, renderers);
     for (const renderer of renderers) {
-      if (renderer.material) {
-        renderer.material.baseColor = new Color(1, 1, 1, value);
+      if (renderer.materialCount > 0) {
+        const material = renderer.getMaterial(0);
+        if (material) {
+          material.baseColor = new Color(1, 1, 1, value);
+        }
       }
     }
   }
   
   get alpha(): number {
-    const renderers = this.entity.getComponentsIncludingChildren(SpriteRenderer);
-    if (renderers.length > 0 && renderers[0].material) {
-      return renderers[0].material.baseColor.a;
+    const renderers: SpriteRenderer[] = [];
+    this.entity.getComponentsIncludeChildren(SpriteRenderer, renderers);
+    if (renderers.length > 0 && renderers[0].materialCount > 0) {
+      const material = renderers[0].getMaterial(0);
+      if (material) {
+        return material.baseColor.a;
+      }
     }
     return 1;
   }
@@ -202,22 +209,31 @@ export class GCSprite extends GCContainer {
   }
   
   set tint(color: Color | number) {
-    if (this.spriteRenderer && this.spriteRenderer.material) {
-      if (typeof color === 'number') {
-        // Convert hex number to Color
-        const r = ((color >> 16) & 0xFF) / 255;
-        const g = ((color >> 8) & 0xFF) / 255;
-        const b = (color & 0xFF) / 255;
-        const a = this.spriteRenderer.material.baseColor.a;
-        this.spriteRenderer.material.baseColor = new Color(r, g, b, a);
-      } else {
-        this.spriteRenderer.material.baseColor = color;
+    if (this.spriteRenderer && this.spriteRenderer.materialCount > 0) {
+      const material = this.spriteRenderer.getMaterial(0);
+      if (material) {
+        if (typeof color === 'number') {
+          // Convert hex number to Color
+          const r = ((color >> 16) & 0xFF) / 255;
+          const g = ((color >> 8) & 0xFF) / 255;
+          const b = (color & 0xFF) / 255;
+          const a = material.baseColor.a;
+          material.baseColor = new Color(r, g, b, a);
+        } else {
+          material.baseColor = color;
+        }
       }
     }
   }
   
   get tint(): Color {
-    return this.spriteRenderer?.material?.baseColor ?? new Color(1, 1, 1, 1);
+    if (this.spriteRenderer && this.spriteRenderer.materialCount > 0) {
+      const material = this.spriteRenderer.getMaterial(0);
+      if (material) {
+        return material.baseColor;
+      }
+    }
+    return new Color(1, 1, 1, 1);
   }
   
   set width(value: number) {
@@ -259,12 +275,17 @@ export class GCSprite extends GCContainer {
   }
   
   set interactive(value: boolean) {
+    this._interactive = value;
     // Will be handled by interaction system
     if (value) {
       this.entity.layer = 1; // Set to interactive layer
     }
   }
   
+  get interactive(): boolean {
+    return this._interactive;
+  }
+
   set cursor(value: string) {
     // Cursor handling will be done via CSS on canvas
   }
@@ -283,18 +304,6 @@ export class GCSprite extends GCContainer {
 
   get buttonMode(): boolean {
     return this._buttonMode;
-  }
-  
-  set interactive(value: boolean) {
-    this._interactive = value;
-    // Will be handled by interaction system
-    if (value) {
-      this.entity.layer = 1; // Set to interactive layer
-    }
-  }
-  
-  get interactive(): boolean {
-    return this._interactive;
   }
 
   on(event: string, callback: (e: any) => void): void {

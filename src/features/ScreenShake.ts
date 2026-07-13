@@ -106,22 +106,24 @@ export class ScreenShake {
       // Step through each offset
       const stepDuration = duration / (steps + 1) / 1000; // Convert to seconds
       for (const offset of offsets) {
-        tl.add(GCTween.to(this.container, {
+        tl.to(this.container, {
           x: this.originalX + offset.x,
           y: this.originalY + offset.y,
+        }, {
           duration: stepDuration,
           ease: 'power1.inOut',
-        }));
+        });
       }
 
       // Fade out (optional: scale or alpha)
       if (fadeOutDuration > 0) {
-        tl.add(GCTween.to(this.container, {
+        tl.to(this.container, {
           x: this.originalX,
           y: this.originalY,
+        }, {
           duration: fadeOutDuration / 1000,
           ease: 'power2.out',
-        }), `-=${fadeOutDuration / 2000}`);
+        }, `-=${fadeOutDuration / 2000}`);
       }
 
       tl.play();

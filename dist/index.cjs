@@ -45830,21 +45830,25 @@ var PaylineRenderer = class {
           lineWidth + glowWidth * 2
         );
         glowGraphics.alpha = 0;
-        tl.add(GCTween.to(glowGraphics, {
-          alpha: this.config.glowAlpha,
+        const glowTween = GCTween.to(glowGraphics, {
+          alpha: this.config.glowAlpha
+        }, {
           duration: drawDuration * 0.3,
           ease
-        }), i * 0.1);
-        this.activeTweens.push(tl.getTweens()[tl.getTweens().length - 1]);
+        });
+        tl.add(glowTween, i * 0.1);
+        this.activeTweens.push(glowTween);
         lineGraphics._glow = glowGraphics;
       }
       lineGraphics.alpha = 0;
-      tl.add(GCTween.to(lineGraphics, {
-        alpha,
+      const lineTween = GCTween.to(lineGraphics, {
+        alpha
+      }, {
         duration: drawDuration * 0.7,
         ease
-      }), i * 0.1 + drawDuration * 0.2);
-      this.activeTweens.push(tl.getTweens()[tl.getTweens().length - 1]);
+      });
+      tl.add(lineTween, i * 0.1 + drawDuration * 0.2);
+      this.activeTweens.push(lineTween);
       lineGraphics._lineData = { winLine, points };
       for (const pt of points) {
         const dot = UIFactory.createGraphics(this.container);
@@ -45852,13 +45856,15 @@ var PaylineRenderer = class {
         dot.drawCircle(pt.x, pt.y, 6 * this.scale);
         dot.endFill();
         dot.alpha = 0;
-        tl.add(GCTween.to(dot, {
-          alpha: 0.8,
+        const dotTween = GCTween.to(dot, {
+          alpha: 0.8
+        }, {
           duration: drawDuration * 0.4,
           ease
-        }), i * 0.1 + drawDuration * 0.3);
+        });
+        tl.add(dotTween, i * 0.1 + drawDuration * 0.3);
         dot._lineData = { winLine };
-        this.activeTweens.push(tl.getTweens()[tl.getTweens().length - 1]);
+        this.activeTweens.push(dotTween);
       }
     }
     tl.play();
@@ -45925,19 +45931,19 @@ var PaylineRenderer = class {
       if (!this.isVisible) {
         return;
       }
-      GCTween.to(lineChildren.map((c) => c.alpha), {
-        alpha: 0.6,
-        duration: pulseDuration * 0.5,
-        ease: "sine.inOut",
-        onComplete: () => {
-          if (!this.isVisible) return;
-          GCTween.to(lineChildren.map((c) => c.alpha), {
-            alpha: 1,
-            duration: pulseDuration * 0.5,
-            ease: "sine.inOut",
-            onComplete: pulse
-          });
-        }
+      lineChildren.forEach((c) => {
+        GCTween.to(c, { alpha: 0.6 }, {
+          duration: pulseDuration * 0.5,
+          ease: "sine.inOut",
+          onComplete: () => {
+            if (!this.isVisible) return;
+            GCTween.to(c, { alpha: 1 }, {
+              duration: pulseDuration * 0.5,
+              ease: "sine.inOut",
+              onComplete: pulse
+            });
+          }
+        });
       });
     };
     this.activeTweens.push(
@@ -46294,20 +46300,22 @@ var ScreenShake = class {
       });
       const stepDuration = duration / (steps + 1) / 1e3;
       for (const offset of offsets) {
-        tl.add(GCTween.to(this.container, {
+        tl.to(this.container, {
           x: this.originalX + offset.x,
-          y: this.originalY + offset.y,
+          y: this.originalY + offset.y
+        }, {
           duration: stepDuration,
           ease: "power1.inOut"
-        }));
+        });
       }
       if (fadeOutDuration > 0) {
-        tl.add(GCTween.to(this.container, {
+        tl.to(this.container, {
           x: this.originalX,
-          y: this.originalY,
+          y: this.originalY
+        }, {
           duration: fadeOutDuration / 1e3,
           ease: "power2.out"
-        }), `-=${fadeOutDuration / 2e3}`);
+        }, `-=${fadeOutDuration / 2e3}`);
       }
       tl.play();
       if (this.events) {
@@ -46617,7 +46625,11 @@ var GameController = class {
     }
     this.messageHandler = new MessageHandler();
     this.bonusController = new BonusController(this.state, this.events);
-    const stage = this.renderer.getStage();
+    const rootEntity = this.renderer.getRootEntity();
+    if (!rootEntity) {
+      throw new Error("Renderer root entity not initialized");
+    }
+    const stage = new GCContainer(rootEntity, "Stage");
     this.mainUIContainer = new GCContainer();
     stage.addChild(this.mainUIContainer);
     this.loadingScreen = new LoadingScreen(this.mainUIContainer, this.events);

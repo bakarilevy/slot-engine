@@ -295,19 +295,20 @@ export class PaylineRenderer {
         // If hidden, stop pulsing
         return;
       }
-      GCTween.to(lineChildren.map((c: any) => c.alpha), {
-        alpha: 0.6,
-        duration: pulseDuration * 0.5,
-        ease: 'sine.inOut',
-        onComplete: () => {
-          if (!this.isVisible) return;
-          GCTween.to(lineChildren.map((c: any) => c.alpha), {
-            alpha: 1.0,
-            duration: pulseDuration * 0.5,
-            ease: 'sine.inOut',
-            onComplete: pulse,
-          });
-        },
+      // Tween alpha of each child
+      lineChildren.forEach((c: any) => {
+        GCTween.to(c, { alpha: 0.6 }, {
+          duration: pulseDuration * 0.5,
+          ease: 'sine.inOut',
+          onComplete: () => {
+            if (!this.isVisible) return;
+            GCTween.to(c, { alpha: 1.0 }, {
+              duration: pulseDuration * 0.5,
+              ease: 'sine.inOut',
+              onComplete: pulse,
+            });
+          },
+        });
       });
     };
 

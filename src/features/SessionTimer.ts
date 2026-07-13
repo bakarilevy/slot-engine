@@ -24,7 +24,7 @@ export class SessionTimer {
 
   private elapsedSeconds: number = 0;
   private limitMinutes: number = 60;
-  private tickerInterval: NodeJS.Timeout | null = null;
+  private tickerInterval: ReturnType<typeof setInterval> | null = null;
   private isPaused: boolean = false;
   private popupActive: boolean = false;
   private onTickCallback?: (elapsedSeconds: number, formatted: string) => void;
