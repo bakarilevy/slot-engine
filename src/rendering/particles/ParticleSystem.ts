@@ -96,7 +96,7 @@ export abstract class ParticleSystem {
    */
   setScale(scale: number): void {
     this.scale = scale;
-    this.container.scale = { x: scale, y: scale, z: 1 };
+    this.container.scale.set(scale, scale, 1);
   }
 
   /**

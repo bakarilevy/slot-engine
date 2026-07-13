@@ -28,6 +28,8 @@ import {
 import { LottieComponent } from '@galacean/engine-lottie';
 import { SkeletonAnimationComponent, SkeletonData } from '@galacean/engine-spine';
 
+// Re-export Vector3 for use in other modules
+export { Vector3 };
 /**
  * Wrapper for a display container - equivalent to PIXI.Container
  */
@@ -78,6 +80,13 @@ export class GCContainer {
     this.children = [];
     this.parent = null;
     this.entity.destroy();
+  }
+  
+  /**
+   * Get all direct children of this container
+   */
+  getChildren(): GCContainer[] {
+    return [...this.children];
   }
   
   set x(value: number) {
@@ -263,6 +272,7 @@ export class GCSprite extends GCContainer {
   hitArea: { x: number; y: number; width: number; height: number } | null = null;
   private _listeners: Map<string, Set<(e: any) => void>> = new Map();
   private _buttonMode: boolean = false;
+  private _interactive: boolean = false;
 
   set buttonMode(value: boolean) {
     this._buttonMode = value;
@@ -273,6 +283,18 @@ export class GCSprite extends GCContainer {
 
   get buttonMode(): boolean {
     return this._buttonMode;
+  }
+  
+  set interactive(value: boolean) {
+    this._interactive = value;
+    // Will be handled by interaction system
+    if (value) {
+      this.entity.layer = 1; // Set to interactive layer
+    }
+  }
+  
+  get interactive(): boolean {
+    return this._interactive;
   }
 
   on(event: string, callback: (e: any) => void): void {
@@ -331,6 +353,10 @@ export class GCText extends GCContainer {
   private _fontFamily: string = 'Arial';
   private _fill: string | number = 0xffffff;
   private _align: 'left' | 'center' | 'right' = 'center';
+  private _anchor: { x: number; y: number } = { x: 0.5, y: 0.5 };
+  private _interactive: boolean = false;
+  private _listeners: Map<string, Set<(e: any) => void>> = new Map();
+  private _nativeHandlers: Map<string, (e: any) => void> | null = null;
   
   constructor(parent: GCContainer, text: string = '', style: any = {}) {
     super(parent, 'Text');
@@ -343,6 +369,41 @@ export class GCText extends GCContainer {
     
     this.textRenderer = this.entity.addComponent(TextRenderer);
     this.updateTextProps();
+  }
+  
+  set interactive(value: boolean) {
+    this._interactive = value;
+    if (value) {
+      this.entity.layer = 1;
+    }
+  }
+  
+  get interactive(): boolean {
+    return this._interactive;
+  }
+  
+  set cursor(value: string) {
+    // Cursor handling will be done via CSS on canvas
+  }
+  
+  on(event: string, callback: (e: any) => void): void {
+    if (!this._listeners.has(event)) {
+      this._listeners.set(event, new Set());
+    }
+    this._listeners.get(event)!.add(callback);
+    
+    if (event === 'pointerdown' || event === 'pointerup' || event === 'pointerover' || event === 'pointerout') {
+      const nativeEvent = `onPointer${event.charAt(7).toUpperCase()}${event.slice(8)}` as keyof Entity;
+      const handler = (e: any) => {
+        this._listeners.get(event)?.forEach(cb => cb(e));
+      };
+      if (!this._nativeHandlers) {
+        this._nativeHandlers = new Map();
+      }
+      const key = `${event}_${callback.toString()}`;
+      this._nativeHandlers.set(key, handler);
+      (this.entity as any)[nativeEvent]?.(handler);
+    }
   }
   
   private updateTextProps(): void {
@@ -429,13 +490,33 @@ export class GCText extends GCContainer {
   }
   
   get anchor(): { x: number; y: number } {
-    // Text anchor is handled via transform pivot
-    return { x: 0.5, y: 0.5 };
+    return this._anchor;
   }
   
   set anchor(value: { x: number; y: number }) {
+    this._anchor = value;
     // Adjust position based on anchor
     this.entity.transform.pivot = new Vector3(value.x, value.y, 0);
+  }
+  
+  off(event: string, callback: (e: any) => void): void {
+    const listeners = this._listeners.get(event);
+    if (listeners) {
+      listeners.delete(callback);
+      if (listeners.size === 0) {
+        this._listeners.delete(event);
+      }
+    }
+    
+    if (this._nativeHandlers) {
+      const key = `${event}_${callback.toString()}`;
+      const handler = this._nativeHandlers.get(key);
+      if (handler) {
+        const nativeEvent = `onPointer${event.charAt(7).toUpperCase()}${event.slice(8)}` as keyof Entity;
+        (this.entity as any)[nativeEvent]?.(handler);
+        this._nativeHandlers.delete(key);
+      }
+    }
   }
 }
 

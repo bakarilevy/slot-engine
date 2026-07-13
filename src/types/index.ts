@@ -236,6 +236,7 @@ export interface ITextStyle {
   stroke?: string | number;
   strokeThickness?: number;
   align?: 'left' | 'center' | 'right';
+  fontWeight?: string;
 }
 
 /**

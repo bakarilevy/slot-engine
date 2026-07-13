@@ -65,8 +65,8 @@ export class HistoryRenderer {
     }, this.container);
     closeBtn.x = 320;
     closeBtn.y = -270;
-    closeBtn.interactive = true;
-    closeBtn.on('pointerdown', () => {
+    (closeBtn as any).interactive = true;
+    (closeBtn as any).on('pointerdown', () => {
       this.hide();
     });
 
@@ -78,7 +78,7 @@ export class HistoryRenderer {
     const mask = UIFactory.createRect(600, 380, 0xffffff, undefined, 0, this.entriesContainer);
     mask.x = 0;
     mask.y = 0;
-    this.entriesContainer.mask = mask;
+    (this.entriesContainer as any).mask = mask;
 
     // Listen to events
     this.wireEvents();
@@ -136,7 +136,7 @@ export class HistoryRenderer {
    */
   setScale(scale: number): void {
     this.scale = scale;
-    this.container.scale.set(scale, scale);
+    this.container.scale.set(scale, scale, 1);
   }
 
   /**
@@ -176,7 +176,7 @@ export class HistoryRenderer {
 
   private renderEntries(): void {
     // Clear existing entries
-    const children = this.entriesContainer.children.slice();
+    const children = this.entriesContainer.getChildren();
     for (const child of children) {
       if ((child as any)._isEntry) {
         (child as any).destroy?.();

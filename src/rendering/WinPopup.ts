@@ -1,4 +1,4 @@
-import { GCContainer, GCGraphics, GCText, GCTween, GCTimeline } from '../types/GalaceanTypes.js';
+import { GCContainer, GCGraphics, GCText, GCTween, GCTimeline, Vector3 } from '../types/GalaceanTypes.js';
 import { GameState } from '../core/GameState.js';
 import { type IUIConfig } from '../types/index.js';
 import { UIFactory } from './UIFactory.js';
@@ -11,7 +11,7 @@ export class WinPopup {
   private config: IUIConfig;
   private state: GameState;
   private isVisible: boolean = false;
-  private tween: GCTween | null = null;
+  private tween: { kill: () => void } | null = null;
 
   constructor(parent: GCContainer, state: GameState, config: IUIConfig) {
     this.state = state;
@@ -67,7 +67,7 @@ export class WinPopup {
 
     // Show with animation
     this.container.visible = true;
-    this.container.scale.set(0.5, 0.5);
+    this.container.scale = new Vector3(0.5, 0.5, 1);
     this.container.alpha = 0;
 
     this.isVisible = true;
@@ -84,9 +84,7 @@ export class WinPopup {
         // Auto-hide after 2 seconds
         this.tween = GCTween.to(this.container, {
           alpha: 0,
-          duration: 0.5,
-          delay: 1.5,
-          onComplete: () => {
+        }, { duration: 0.5, delay: 1.5, onComplete: () => {
             this.container.visible = false;
             this.isVisible = false;
             this.tween = null;
@@ -95,16 +93,16 @@ export class WinPopup {
       },
     });
 
-    tl.add(GCTween.to(this.container, {
-      scale: 1.2,
+    tl.to(this.container, {
+      scale: new Vector3(1.2, 1.2, 1),
       alpha: 1,
       duration: 0.4,
       ease: 'back.out(1.7)',
-    })).add(GCTween.to(this.container, {
-      scale: 1,
+    }, {}).to(this.container, {
+      scale: new Vector3(1, 1, 1),
       duration: 0.3,
       ease: 'power2.out',
-    }));
+    }, {});
     
     tl.play();
   }

@@ -41909,6 +41909,12 @@ var GCContainer = class _GCContainer {
     this.parent = null;
     this.entity.destroy();
   }
+  /**
+   * Get all direct children of this container
+   */
+  getChildren() {
+    return [...this.children];
+  }
   set x(value) {
     this.entity.transform.position.x = value;
   }
@@ -42052,6 +42058,7 @@ var GCSprite = class extends GCContainer {
   hitArea = null;
   _listeners = /* @__PURE__ */ new Map();
   _buttonMode = false;
+  _interactive = false;
   set buttonMode(value) {
     this._buttonMode = value;
     if (value) {
@@ -42060,6 +42067,15 @@ var GCSprite = class extends GCContainer {
   }
   get buttonMode() {
     return this._buttonMode;
+  }
+  set interactive(value) {
+    this._interactive = value;
+    if (value) {
+      this.entity.layer = 1;
+    }
+  }
+  get interactive() {
+    return this._interactive;
   }
   on(event, callback) {
     if (!this._listeners.has(event)) {
@@ -42106,6 +42122,10 @@ var GCText = class extends GCContainer {
   _fontFamily = "Arial";
   _fill = 16777215;
   _align = "center";
+  _anchor = { x: 0.5, y: 0.5 };
+  _interactive = false;
+  _listeners = /* @__PURE__ */ new Map();
+  _nativeHandlers = null;
   constructor(parent, text2 = "", style = {}) {
     super(parent, "Text");
     this._text = text2;
@@ -42115,6 +42135,35 @@ var GCText = class extends GCContainer {
     if (style.align) this._align = style.align;
     this.textRenderer = this.entity.addComponent(import_engine4.TextRenderer);
     this.updateTextProps();
+  }
+  set interactive(value) {
+    this._interactive = value;
+    if (value) {
+      this.entity.layer = 1;
+    }
+  }
+  get interactive() {
+    return this._interactive;
+  }
+  set cursor(value) {
+  }
+  on(event, callback) {
+    if (!this._listeners.has(event)) {
+      this._listeners.set(event, /* @__PURE__ */ new Set());
+    }
+    this._listeners.get(event).add(callback);
+    if (event === "pointerdown" || event === "pointerup" || event === "pointerover" || event === "pointerout") {
+      const nativeEvent = `onPointer${event.charAt(7).toUpperCase()}${event.slice(8)}`;
+      const handler = (e) => {
+        this._listeners.get(event)?.forEach((cb) => cb(e));
+      };
+      if (!this._nativeHandlers) {
+        this._nativeHandlers = /* @__PURE__ */ new Map();
+      }
+      const key = `${event}_${callback.toString()}`;
+      this._nativeHandlers.set(key, handler);
+      this.entity[nativeEvent]?.(handler);
+    }
   }
   updateTextProps() {
     if (!this.textRenderer) return;
@@ -42186,10 +42235,29 @@ var GCText = class extends GCContainer {
     }
   }
   get anchor() {
-    return { x: 0.5, y: 0.5 };
+    return this._anchor;
   }
   set anchor(value) {
+    this._anchor = value;
     this.entity.transform.pivot = new import_engine4.Vector3(value.x, value.y, 0);
+  }
+  off(event, callback) {
+    const listeners = this._listeners.get(event);
+    if (listeners) {
+      listeners.delete(callback);
+      if (listeners.size === 0) {
+        this._listeners.delete(event);
+      }
+    }
+    if (this._nativeHandlers) {
+      const key = `${event}_${callback.toString()}`;
+      const handler = this._nativeHandlers.get(key);
+      if (handler) {
+        const nativeEvent = `onPointer${event.charAt(7).toUpperCase()}${event.slice(8)}`;
+        this.entity[nativeEvent]?.(handler);
+        this._nativeHandlers.delete(key);
+      }
+    }
   }
 };
 var GCGraphics = class extends GCContainer {
@@ -43499,7 +43567,7 @@ var WinPopup = class {
     });
     this.winText.text = "+" + formatted;
     this.container.visible = true;
-    this.container.scale.set(0.5, 0.5);
+    this.container.scale = new import_engine4.Vector3(0.5, 0.5, 1);
     this.container.alpha = 0;
     this.isVisible = true;
     if (this.tween) {
@@ -43509,7 +43577,8 @@ var WinPopup = class {
     const tl = new GCTimeline({
       onComplete: () => {
         this.tween = GCTween.to(this.container, {
-          alpha: 0,
+          alpha: 0
+        }, {
           duration: 0.5,
           delay: 1.5,
           onComplete: () => {
@@ -43520,16 +43589,16 @@ var WinPopup = class {
         });
       }
     });
-    tl.add(GCTween.to(this.container, {
-      scale: 1.2,
+    tl.to(this.container, {
+      scale: new import_engine4.Vector3(1.2, 1.2, 1),
       alpha: 1,
       duration: 0.4,
       ease: "back.out(1.7)"
-    })).add(GCTween.to(this.container, {
-      scale: 1,
+    }, {}).to(this.container, {
+      scale: new import_engine4.Vector3(1, 1, 1),
       duration: 0.3,
       ease: "power2.out"
-    }));
+    }, {});
     tl.play();
   }
   /**
@@ -43984,7 +44053,8 @@ var LoadingScreen = class {
   hide() {
     return new Promise((resolve) => {
       GCTween.to(this.container, {
-        alpha: 0,
+        alpha: 0
+      }, {
         duration: 0.5,
         ease: "power2.out",
         onComplete: () => {
@@ -44159,7 +44229,7 @@ var PaytableRenderer = class {
    * Destroy the paytable.
    */
   destroy() {
-    this.container.destroy(true);
+    this.container.destroy();
   }
 };
 
@@ -44262,7 +44332,7 @@ var HistoryRenderer = class {
    */
   setScale(scale) {
     this.scale = scale;
-    this.container.scale.set(scale, scale);
+    this.container.scale.set(scale, scale, 1);
   }
   /**
    * Get the container.
@@ -44295,7 +44365,7 @@ var HistoryRenderer = class {
     this.cleanupListeners.push(toggleCleanup);
   }
   renderEntries() {
-    const children = this.entriesContainer.children.slice();
+    const children = this.entriesContainer.getChildren();
     for (const child of children) {
       if (child._isEntry) {
         child.destroy?.();
@@ -44673,7 +44743,7 @@ var SettingsPanel = class {
     );
     this.musicToggle.x = 180;
     this.musicToggle.y = yOffset;
-    this.musicToggle.anchor.set(1, 0.5);
+    this.musicToggle.anchor = { x: 1, y: 0.5 };
     this.musicToggle.interactive = true;
     this.musicToggle.cursor = "pointer";
     this.musicToggle.on("pointerdown", () => {
@@ -44705,7 +44775,7 @@ var SettingsPanel = class {
     );
     this.sfxToggle.x = 180;
     this.sfxToggle.y = yOffset;
-    this.sfxToggle.anchor.set(1, 0.5);
+    this.sfxToggle.anchor = { x: 1, y: 0.5 };
     this.sfxToggle.interactive = true;
     this.sfxToggle.cursor = "pointer";
     this.sfxToggle.on("pointerdown", () => {
@@ -44738,7 +44808,7 @@ var SettingsPanel = class {
     );
     this.sessionLimitToggle.x = 180;
     this.sessionLimitToggle.y = yOffset;
-    this.sessionLimitToggle.anchor.set(1, 0.5);
+    this.sessionLimitToggle.anchor = { x: 1, y: 0.5 };
     this.sessionLimitToggle.interactive = true;
     this.sessionLimitToggle.cursor = "pointer";
     this.sessionLimitToggle.on("pointerdown", () => {
@@ -44770,7 +44840,7 @@ var SettingsPanel = class {
     );
     this.sessionElapsedText.x = 180;
     this.sessionElapsedText.y = yOffset;
-    this.sessionElapsedText.anchor.set(1, 0.5);
+    this.sessionElapsedText.anchor = { x: 1, y: 0.5 };
     const unsubscribe = this.events.on("session:tick", (data) => {
       if (this.visible && this.sessionElapsedText) {
         this.sessionElapsedText.text = data.formatted;
@@ -44805,7 +44875,7 @@ var SettingsPanel = class {
       );
       this.languageSelector.x = 180;
       this.languageSelector.y = yOffset;
-      this.languageSelector.anchor.set(1, 0.5);
+      this.languageSelector.anchor = { x: 1, y: 0.5 };
       this.languageSelector.interactive = true;
       this.languageSelector.cursor = "pointer";
       this.languageSelector.on("pointerdown", () => {
@@ -44821,7 +44891,7 @@ var SettingsPanel = class {
     this.soundManager.setMusicEnabled(!state.musicEnabled);
     const newState = this.soundManager.getState();
     this.musicToggle.text = newState.musicEnabled ? "ON" : "OFF";
-    this.musicToggle.style.fill = newState.musicEnabled ? 65416 : 16729156;
+    this.musicToggle.fill = newState.musicEnabled ? 65416 : 16729156;
   }
   /**
    * Toggle SFX on/off.
@@ -44831,7 +44901,7 @@ var SettingsPanel = class {
     this.soundManager.setSfxEnabled(!state.sfxEnabled);
     const newState = this.soundManager.getState();
     this.sfxToggle.text = newState.sfxEnabled ? "ON" : "OFF";
-    this.sfxToggle.style.fill = newState.sfxEnabled ? 65416 : 16729156;
+    this.sfxToggle.fill = newState.sfxEnabled ? 65416 : 16729156;
   }
   /**
    * Cycle through available languages.
@@ -44895,7 +44965,7 @@ var SettingsPanel = class {
       cleanup();
     }
     this.cleanupListeners = [];
-    this.container.destroy(true);
+    this.container.destroy();
   }
 };
 
@@ -44937,7 +45007,7 @@ var Particle = class {
     this.sprite.visible = true;
     this.sprite.x = x;
     this.sprite.y = y;
-    this.sprite.scale = { x: scale, y: scale, z: 1 };
+    this.sprite.scale.set(scale, scale, 1);
     this.sprite.alpha = alpha;
     this.sprite.entity.transform.rotation = new import_engine7.Vector3(0, 0, rotation);
   }
@@ -45044,7 +45114,7 @@ var ParticleSystem = class {
    */
   setScale(scale) {
     this.scale = scale;
-    this.container.scale = { x: scale, y: scale, z: 1 };
+    this.container.scale.set(scale, scale, 1);
   }
   /**
    * Get the container (for positioning).

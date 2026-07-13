@@ -109,7 +109,7 @@ export class SettingsPanel {
     );
     this.musicToggle.x = 180;
     this.musicToggle.y = yOffset;
-    this.musicToggle.anchor.set(1, 0.5);
+    this.musicToggle.anchor = { x: 1, y: 0.5 };
     this.musicToggle.interactive = true;
     this.musicToggle.cursor = 'pointer';
     this.musicToggle.on('pointerdown', () => {
@@ -145,7 +145,7 @@ export class SettingsPanel {
     );
     this.sfxToggle.x = 180;
     this.sfxToggle.y = yOffset;
-    this.sfxToggle.anchor.set(1, 0.5);
+    this.sfxToggle.anchor = { x: 1, y: 0.5 };
     this.sfxToggle.interactive = true;
     this.sfxToggle.cursor = 'pointer';
     this.sfxToggle.on('pointerdown', () => {
@@ -184,7 +184,7 @@ export class SettingsPanel {
     );
     this.sessionLimitToggle.x = 180;
     this.sessionLimitToggle.y = yOffset;
-    this.sessionLimitToggle.anchor.set(1, 0.5);
+    this.sessionLimitToggle.anchor = { x: 1, y: 0.5 };
     this.sessionLimitToggle.interactive = true;
     this.sessionLimitToggle.cursor = 'pointer';
     this.sessionLimitToggle.on('pointerdown', () => {
@@ -220,7 +220,7 @@ export class SettingsPanel {
     );
     this.sessionElapsedText.x = 180;
     this.sessionElapsedText.y = yOffset;
-    this.sessionElapsedText.anchor.set(1, 0.5);
+    this.sessionElapsedText.anchor = { x: 1, y: 0.5 };
 
     // Listen to live ticking events to update the setting display window in real-time
     const unsubscribe = this.events.on('session:tick', (data: { formatted: string }) => {
@@ -261,7 +261,7 @@ export class SettingsPanel {
       );
       this.languageSelector.x = 180;
       this.languageSelector.y = yOffset;
-      this.languageSelector.anchor.set(1, 0.5);
+      this.languageSelector.anchor = { x: 1, y: 0.5 };
       this.languageSelector.interactive = true;
       this.languageSelector.cursor = 'pointer';
       this.languageSelector.on('pointerdown', () => {
@@ -278,7 +278,7 @@ export class SettingsPanel {
     this.soundManager.setMusicEnabled(!state.musicEnabled);
     const newState = this.soundManager.getState();
     this.musicToggle.text = newState.musicEnabled ? 'ON' : 'OFF';
-    this.musicToggle.style.fill = newState.musicEnabled ? 0x00ff88 : 0xff4444;
+    this.musicToggle.fill = newState.musicEnabled ? 0x00ff88 : 0xff4444;
   }
 
   /**
@@ -289,7 +289,7 @@ export class SettingsPanel {
     this.soundManager.setSfxEnabled(!state.sfxEnabled);
     const newState = this.soundManager.getState();
     this.sfxToggle.text = newState.sfxEnabled ? 'ON' : 'OFF';
-    this.sfxToggle.style.fill = newState.sfxEnabled ? 0x00ff88 : 0xff4444;
+    this.sfxToggle.fill = newState.sfxEnabled ? 0x00ff88 : 0xff4444;
   }
 
   /**
@@ -367,6 +367,6 @@ export class SettingsPanel {
       cleanup();
     }
     this.cleanupListeners = [];
-    this.container.destroy(true);
+    this.container.destroy();
   }
 }

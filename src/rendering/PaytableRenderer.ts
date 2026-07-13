@@ -74,9 +74,9 @@ export class PaytableRenderer {
     }, this.container);
     closeBtn.x = 270;
     closeBtn.y = -310;
-    closeBtn.interactive = true;
-    closeBtn.cursor = 'pointer';
-    closeBtn.on('pointerdown', () => {
+    (closeBtn as any).interactive = true;
+    (closeBtn as any).cursor = 'pointer';
+    (closeBtn as any).on('pointerdown', () => {
       this.hide();
     });
 
@@ -134,7 +134,7 @@ export class PaytableRenderer {
       }, this.container);
       multLabel.x = 220;
       multLabel.y = yOffset - 6;
-      multLabel.anchor.set(1, 0.5);
+      (multLabel.anchor as any).set(1, 0.5);
 
       yOffset += stepY;
     }
@@ -185,6 +185,6 @@ export class PaytableRenderer {
    * Destroy the paytable.
    */
   destroy(): void {
-    this.container.destroy(true);
+    this.container.destroy();
   }
 }

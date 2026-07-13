@@ -52,7 +52,7 @@ export class Particle {
     this.sprite.visible = true;
     this.sprite.x = x;
     this.sprite.y = y;
-    this.sprite.scale = { x: scale, y: scale, z: 1 };
+    this.sprite.scale.set(scale, scale, 1);
     this.sprite.alpha = alpha;
     this.sprite.entity.transform.rotation = new Vector3(0, 0, rotation);
   }
