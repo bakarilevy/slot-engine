@@ -42165,6 +42165,9 @@ var GCText = class extends GCContainer {
 var GCGraphics = class extends GCContainer {
   vertices = [];
   colors = [];
+  _lineWidth = 1;
+  _lineColor = 16777215;
+  _lineAlpha = 1;
   clear() {
     this.vertices = [];
     this.colors = [];
@@ -42189,6 +42192,17 @@ var GCGraphics = class extends GCContainer {
     return this;
   }
   lineStyle(width, color, alpha) {
+    this._lineWidth = width;
+    this._lineColor = color ?? 16777215;
+    this._lineAlpha = alpha ?? 1;
+    return this;
+  }
+  moveTo(x, y) {
+    this.vertices.push(x, y);
+    return this;
+  }
+  lineTo(x, y) {
+    this.vertices.push(x, y);
     return this;
   }
 };
@@ -42306,6 +42320,10 @@ var GCTween = class _GCTween {
     tween.start(config.delay || 0);
     return { kill: () => tween.kill() };
   }
+  static delayedCall(delay, callback) {
+    const timeoutId = setTimeout(callback, delay * 1e3);
+    return { kill: () => clearTimeout(timeoutId) };
+  }
   static timeline(config) {
     const tweens = [];
     return {
@@ -42343,6 +42361,18 @@ var GCTimeline = class {
     }
     this.tweens.push({ target, props, params, delay });
     return this;
+  }
+  add(tween, delay = 0) {
+    this.tweens.push({
+      target: tween,
+      props: {},
+      params: { duration: 0 },
+      delay
+    });
+    return this;
+  }
+  getTweens() {
+    return this.tweens.map((t) => t.target);
   }
   async play() {
     let currentTime = 0;
@@ -45184,7 +45214,7 @@ var FallingParticleSystem = class extends ParticleSystem {
     p.sprite.visible = true;
     p.sprite.x = p.x;
     p.sprite.y = p.y;
-    p.sprite.scale = { x: p.scale, y: p.scale, z: 1 };
+    p.sprite.scale.set(p.scale, p.scale, 1);
     p.sprite.alpha = p.alpha;
     p.sprite.entity.transform.rotation = new Vector37(0, 0, p.rotation);
     p.sprite.tint = colors[randomInt(0, colors.length)];
@@ -45398,7 +45428,7 @@ var AutoplayControls = class {
     this.cleanupFns = [];
     this.stopButton.destroy();
     this.fastSpinToggle.destroy();
-    this.container.destroy(true);
+    this.container.destroy();
   }
   wireEvents() {
     const startCleanup = this.events.on("autoplay:started", (state) => {
@@ -45459,17 +45489,20 @@ var LogoAnimator = class {
     if (this.isReady) return;
     this.container.visible = true;
     this.container.alpha = this.config.alphaStart;
-    this.container.scale.set(this.config.scaleStart, this.config.scaleStart);
+    this.container.setScale(this.config.scaleStart, this.config.scaleStart);
     await new Promise((resolve) => {
       GCTween.to(this.container, {
         alpha: 1,
-        scale: this.config.scalePeak,
+        scaleX: this.config.scalePeak,
+        scaleY: this.config.scalePeak
+      }, {
         duration: this.config.duration,
         ease: this.config.ease,
         onComplete: () => {
-          GCTween.to(this.container.scale, {
-            x: 1,
-            y: 1,
+          GCTween.to(this.container, {
+            scaleX: 1,
+            scaleY: 1
+          }, {
             duration: this.config.duration * 0.4,
             ease: "power2.out"
           });
@@ -45494,7 +45527,8 @@ var LogoAnimator = class {
   async hide() {
     await new Promise((resolve) => {
       GCTween.to(this.container, {
-        alpha: 0,
+        alpha: 0
+      }, {
         duration: 0.4,
         ease: "power2.out",
         onComplete: () => {
@@ -45510,7 +45544,7 @@ var LogoAnimator = class {
   showImmediate() {
     this.container.visible = true;
     this.container.alpha = 1;
-    this.container.scale.set(1, 1);
+    this.container.setScale(1, 1);
     this.isReady = true;
     this.events.emit("logo:ready", {});
   }
@@ -45562,7 +45596,7 @@ var LogoAnimator = class {
       const maxSize = 200;
       if (sprite.width > maxSize) {
         const ratio = maxSize / sprite.width;
-        sprite.scale.set(ratio, ratio);
+        sprite.setScale(ratio, ratio);
       }
       yOffset += sprite.height / 2 + 20;
     }
@@ -45574,7 +45608,7 @@ var LogoAnimator = class {
       );
       textObj.x = 0;
       textObj.y = yOffset;
-      textObj.anchor.set(0.5, 0.5);
+      textObj.anchor = { x: 0.5, y: 0.5 };
     }
     const bounds = layoutContainer.getBounds();
     layoutContainer.x = -bounds.width / 2;
@@ -45642,7 +45676,7 @@ var PaylineRenderer = class {
    */
   setScale(scale) {
     this.scale = scale;
-    this.container.scale.set(scale, scale);
+    this.container.setScale(scale, scale);
   }
   /**
    * Draw and animate winning lines.
@@ -45739,7 +45773,7 @@ var PaylineRenderer = class {
       tween.kill();
     }
     this.activeTweens = [];
-    const children = this.container.children.slice();
+    const children = this.container.getChildren?.() || [];
     for (const child of children) {
       if (child === this.graphics) continue;
       child.destroy?.();
@@ -45784,29 +45818,23 @@ var PaylineRenderer = class {
     }
   }
   startPulse() {
-    const lineChildren = this.container.children.filter(
+    const lineChildren = this.container.getChildren?.().filter(
       (child) => child instanceof GCGraphics && child !== this.graphics
-    );
+    ) || [];
     if (lineChildren.length === 0) return;
     const pulseDuration = this.config.pulseDuration;
     const pulse = () => {
       if (!this.isVisible) {
         return;
       }
-      GCTween.to(lineChildren, {
-        alpha: (idx, target) => {
-          const base = target.alpha || 1;
-          return base * 0.6;
-        },
+      GCTween.to(lineChildren.map((c) => c.alpha), {
+        alpha: 0.6,
         duration: pulseDuration * 0.5,
         ease: "sine.inOut",
         onComplete: () => {
           if (!this.isVisible) return;
-          GCTween.to(lineChildren, {
-            alpha: (idx, target) => {
-              const base = target.alpha || 0.6;
-              return base / 0.6 * 1;
-            },
+          GCTween.to(lineChildren.map((c) => c.alpha), {
+            alpha: 1,
             duration: pulseDuration * 0.5,
             ease: "sine.inOut",
             onComplete: pulse

@@ -131,7 +131,7 @@ export class AutoplayControls {
     this.cleanupFns = [];
     this.stopButton.destroy();
     this.fastSpinToggle.destroy();
-    this.container.destroy(true);
+    this.container.destroy();
   }
 
   private wireEvents(): void {

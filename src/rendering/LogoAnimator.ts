@@ -60,20 +60,23 @@ export class LogoAnimator {
     // Make visible
     this.container.visible = true;
     this.container.alpha = this.config.alphaStart;
-    this.container.scale.set(this.config.scaleStart, this.config.scaleStart);
+    this.container.setScale(this.config.scaleStart, this.config.scaleStart);
 
     // Animate in
     await new Promise<void>((resolve) => {
       GCTween.to(this.container, {
         alpha: 1,
-        scale: this.config.scalePeak,
+        scaleX: this.config.scalePeak,
+        scaleY: this.config.scalePeak,
+      }, {
         duration: this.config.duration,
         ease: this.config.ease,
         onComplete: () => {
           // Slight bounce back to 1.0
-          GCTween.to(this.container.scale, {
-            x: 1,
-            y: 1,
+          GCTween.to(this.container, {
+            scaleX: 1,
+            scaleY: 1,
+          }, {
             duration: this.config.duration * 0.4,
             ease: 'power2.out',
           });
@@ -105,6 +108,7 @@ export class LogoAnimator {
     await new Promise<void>((resolve) => {
       GCTween.to(this.container, {
         alpha: 0,
+      }, {
         duration: 0.4,
         ease: 'power2.out',
         onComplete: () => {
@@ -121,7 +125,7 @@ export class LogoAnimator {
   showImmediate(): void {
     this.container.visible = true;
     this.container.alpha = 1;
-    this.container.scale.set(1, 1);
+    this.container.setScale(1, 1);
     this.isReady = true;
     this.events.emit('logo:ready', {});
   }
@@ -183,7 +187,7 @@ export class LogoAnimator {
       const maxSize = 200;
       if (sprite.width > maxSize) {
         const ratio = maxSize / sprite.width;
-        sprite.scale.set(ratio, ratio);
+        sprite.setScale(ratio, ratio);
       }
       yOffset += sprite.height / 2 + 20;
     }
@@ -196,7 +200,7 @@ export class LogoAnimator {
       );
       textObj.x = 0;
       textObj.y = yOffset;
-      textObj.anchor.set(0.5, 0.5);
+      textObj.anchor = { x: 0.5, y: 0.5 };
     }
 
     // Center the layout container

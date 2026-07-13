@@ -526,6 +526,9 @@ export class GCText extends GCContainer {
 export class GCGraphics extends GCContainer {
   private vertices: number[] = [];
   private colors: number[] = [];
+  private _lineWidth: number = 1;
+  private _lineColor: number = 0xffffff;
+  private _lineAlpha: number = 1;
   
   clear(): void {
     this.vertices = [];
@@ -561,6 +564,21 @@ export class GCGraphics extends GCContainer {
   }
   
   lineStyle(width: number, color?: number, alpha?: number): this {
+    this._lineWidth = width;
+    this._lineColor = color ?? 0xffffff;
+    this._lineAlpha = alpha ?? 1;
+    return this;
+  }
+  
+  moveTo(x: number, y: number): this {
+    // Store starting point for line drawing
+    this.vertices.push(x, y);
+    return this;
+  }
+  
+  lineTo(x: number, y: number): this {
+    // Store line endpoint
+    this.vertices.push(x, y);
     return this;
   }
 }
@@ -715,6 +733,11 @@ export class GCTween {
     return { kill: () => tween.kill() };
   }
   
+  static delayedCall(delay: number, callback: () => void): { kill: () => void } {
+    const timeoutId = setTimeout(callback, delay * 1000);
+    return { kill: () => clearTimeout(timeoutId) };
+  }
+  
   static timeline(config: { onComplete?: () => void }): { to: (target: any, props: any, params: any) => void; kill: () => void } {
     const tweens: GCTween[] = [];
     
@@ -764,6 +787,21 @@ export class GCTimeline {
     
     this.tweens.push({ target, props, params, delay });
     return this;
+  }
+  
+  add(tween: { kill: () => void }, delay: number = 0): this {
+    // For compatibility with GSAP-style timeline.add()
+    this.tweens.push({ 
+      target: tween, 
+      props: {}, 
+      params: { duration: 0 }, 
+      delay 
+    });
+    return this;
+  }
+  
+  getTweens(): { kill: () => void }[] {
+    return this.tweens.map(t => t.target as { kill: () => void });
   }
   
   async play(): Promise<void> {
