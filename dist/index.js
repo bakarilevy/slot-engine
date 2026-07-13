@@ -4171,14 +4171,14 @@ var Ray = /* @__PURE__ */ (function() {
   return Ray2;
 })();
 var Vector22 = /* @__PURE__ */ (function() {
-  function Vector25(x, y) {
+  function Vector26(x, y) {
     if (x === void 0) x = 0;
     if (y === void 0) y = 0;
     this._onValueChanged = null;
     this._x = x;
     this._y = y;
   }
-  var _proto = Vector25.prototype;
+  var _proto = Vector26.prototype;
   _proto.set = function set(x, y) {
     this._x = x;
     this._y = y;
@@ -4224,7 +4224,7 @@ var Vector22 = /* @__PURE__ */ (function() {
     return this;
   };
   _proto.normalize = function normalize() {
-    Vector25.normalize(this, this);
+    Vector26.normalize(this, this);
     return this;
   };
   _proto.scale = function scale(s) {
@@ -4234,7 +4234,7 @@ var Vector22 = /* @__PURE__ */ (function() {
     return this;
   };
   _proto.clone = function clone() {
-    return new Vector25(this._x, this._y);
+    return new Vector26(this._x, this._y);
   };
   _proto.copyFrom = function copyFrom(source) {
     this._x = source.x;
@@ -4265,64 +4265,64 @@ var Vector22 = /* @__PURE__ */ (function() {
       y: this._y
     };
   };
-  Vector25.add = function add(left, right, out) {
+  Vector26.add = function add(left, right, out) {
     out._x = left._x + right._x;
     out._y = left._y + right._y;
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
   };
-  Vector25.subtract = function subtract(left, right, out) {
+  Vector26.subtract = function subtract(left, right, out) {
     out._x = left._x - right._x;
     out._y = left._y - right._y;
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
   };
-  Vector25.multiply = function multiply(left, right, out) {
+  Vector26.multiply = function multiply(left, right, out) {
     out._x = left._x * right._x;
     out._y = left._y * right._y;
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
   };
-  Vector25.divide = function divide(left, right, out) {
+  Vector26.divide = function divide(left, right, out) {
     out._x = left._x / right._x;
     out._y = left._y / right._y;
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
   };
-  Vector25.dot = function dot(left, right) {
+  Vector26.dot = function dot(left, right) {
     return left._x * right._x + left._y * right._y;
   };
-  Vector25.distance = function distance(left, right) {
+  Vector26.distance = function distance(left, right) {
     var x = right._x - left._x;
     var y = right._y - left._y;
     return Math.sqrt(x * x + y * y);
   };
-  Vector25.distanceSquared = function distanceSquared(left, right) {
+  Vector26.distanceSquared = function distanceSquared(left, right) {
     var x = right._x - left._x;
     var y = right._y - left._y;
     return x * x + y * y;
   };
-  Vector25.equals = function equals(left, right) {
+  Vector26.equals = function equals(left, right) {
     return MathUtil.equals(left._x, right._x) && MathUtil.equals(left._y, right._y);
   };
-  Vector25.lerp = function lerp(left, right, t, out) {
+  Vector26.lerp = function lerp(left, right, t, out) {
     var _x = left._x, _y = left._y;
     out._x = _x + (right._x - _x) * t;
     out._y = _y + (right._y - _y) * t;
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
   };
-  Vector25.max = function max(left, right, out) {
+  Vector26.max = function max(left, right, out) {
     out._x = Math.max(left._x, right._x);
     out._y = Math.max(left._y, right._y);
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
   };
-  Vector25.min = function min(left, right, out) {
+  Vector26.min = function min(left, right, out) {
     out._x = Math.min(left._x, right._x);
     out._y = Math.min(left._y, right._y);
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
   };
-  Vector25.negate = function negate(left, out) {
+  Vector26.negate = function negate(left, out) {
     out._x = -left._x;
     out._y = -left._y;
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
   };
-  Vector25.normalize = function normalize(left, out) {
+  Vector26.normalize = function normalize(left, out) {
     var _x = left._x, _y = left._y;
     var len = Math.sqrt(_x * _x + _y * _y);
     if (len > MathUtil.zeroTolerance) {
@@ -4332,12 +4332,12 @@ var Vector22 = /* @__PURE__ */ (function() {
       out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
     }
   };
-  Vector25.scale = function scale(left, s, out) {
+  Vector26.scale = function scale(left, s, out) {
     out._x = left._x * s;
     out._y = left._y * s;
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
   };
-  _create_class(Vector25, [
+  _create_class(Vector26, [
     {
       key: "x",
       get: (
@@ -4369,7 +4369,7 @@ var Vector22 = /* @__PURE__ */ (function() {
       }
     }
   ]);
-  return Vector25;
+  return Vector26;
 })();
 Vector22._zero = new Vector22(0, 0);
 Vector22._one = new Vector22(1, 1);
@@ -4685,7 +4685,7 @@ var Vector4 = /* @__PURE__ */ (function() {
 Vector4._zero = new Vector4(0, 0, 0, 0);
 Vector4._one = new Vector4(1, 1, 1, 1);
 var Color2 = /* @__PURE__ */ (function() {
-  function Color6(r, g, b, a) {
+  function Color7(r, g, b, a) {
     if (r === void 0) r = 1;
     if (g === void 0) g = 1;
     if (b === void 0) b = 1;
@@ -4696,7 +4696,7 @@ var Color2 = /* @__PURE__ */ (function() {
     this._b = b;
     this._a = a;
   }
-  var _proto = Color6.prototype;
+  var _proto = Color7.prototype;
   _proto.set = function set(r, g, b, a) {
     this._r = r;
     this._g = g;
@@ -4722,7 +4722,7 @@ var Color2 = /* @__PURE__ */ (function() {
     return this;
   };
   _proto.clone = function clone() {
-    var ret = new Color6(this._r, this._g, this._b, this._a);
+    var ret = new Color7(this._r, this._g, this._b, this._a);
     return ret;
   };
   _proto.copyFrom = function copyFrom(source) {
@@ -4757,17 +4757,17 @@ var Color2 = /* @__PURE__ */ (function() {
     out[outOffset + 3] = this._a;
   };
   _proto.toLinear = function toLinear(out) {
-    out._r = Color6.sRGBToLinearSpace(this._r);
-    out._g = Color6.sRGBToLinearSpace(this._g);
-    out._b = Color6.sRGBToLinearSpace(this._b);
+    out._r = Color7.sRGBToLinearSpace(this._r);
+    out._g = Color7.sRGBToLinearSpace(this._g);
+    out._b = Color7.sRGBToLinearSpace(this._b);
     out._a = this._a;
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
     return out;
   };
   _proto.toSRGB = function toSRGB(out) {
-    out._r = Color6.linearToSRGBSpace(this._r);
-    out._g = Color6.linearToSRGBSpace(this._g);
-    out._b = Color6.linearToSRGBSpace(this._b);
+    out._r = Color7.linearToSRGBSpace(this._r);
+    out._g = Color7.linearToSRGBSpace(this._g);
+    out._b = Color7.linearToSRGBSpace(this._b);
     out._a = this._a;
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
     return out;
@@ -4795,22 +4795,22 @@ var Color2 = /* @__PURE__ */ (function() {
   _proto.toGamma = function toGamma(out) {
     return this.toSRGB(out);
   };
-  Color6.sRGBToLinearSpace = function sRGBToLinearSpace(value) {
+  Color7.sRGBToLinearSpace = function sRGBToLinearSpace(value) {
     if (value <= 0) return 0;
     else if (value <= 0.04045) return value / 12.92;
     else if (value < 1) return Math.pow((value + 0.055) / 1.055, 2.4);
     else return Math.pow(value, 2.4);
   };
-  Color6.linearToSRGBSpace = function linearToSRGBSpace(value) {
+  Color7.linearToSRGBSpace = function linearToSRGBSpace(value) {
     if (value <= 0) return 0;
     else if (value < 31308e-7) return 12.92 * value;
     else if (value < 1) return 1.055 * Math.pow(value, 0.41666) - 0.055;
     else return Math.pow(value, 0.41666);
   };
-  Color6.equals = function equals(left, right) {
+  Color7.equals = function equals(left, right) {
     return MathUtil.equals(left._r, right._r) && MathUtil.equals(left._g, right._g) && MathUtil.equals(left._b, right._b) && MathUtil.equals(left._a, right._a);
   };
-  Color6.add = function add(left, right, out) {
+  Color7.add = function add(left, right, out) {
     out._r = left._r + right._r;
     out._g = left._g + right._g;
     out._b = left._b + right._b;
@@ -4818,14 +4818,14 @@ var Color2 = /* @__PURE__ */ (function() {
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
     return out;
   };
-  Color6.subtract = function subtract(left, right, out) {
+  Color7.subtract = function subtract(left, right, out) {
     out._r = left._r - right._r;
     out._g = left._g - right._g;
     out._b = left._b - right._b;
     out._a = left._a - right._a;
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
   };
-  Color6.scale = function scale(left, s, out) {
+  Color7.scale = function scale(left, s, out) {
     out._r = left._r * s;
     out._g = left._g * s;
     out._b = left._b * s;
@@ -4833,7 +4833,7 @@ var Color2 = /* @__PURE__ */ (function() {
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
     return out;
   };
-  Color6.lerp = function lerp(start, end, t, out) {
+  Color7.lerp = function lerp(start, end, t, out) {
     var _r = start._r, _g = start._g, _b = start._b, _a = start._a;
     out._r = _r + (end._r - _r) * t;
     out._g = _g + (end._g - _g) * t;
@@ -4842,13 +4842,13 @@ var Color2 = /* @__PURE__ */ (function() {
     out._onValueChanged == null ? void 0 : out._onValueChanged.call(out);
     return out;
   };
-  Color6.gammaToLinearSpace = function gammaToLinearSpace(value) {
-    return Color6.sRGBToLinearSpace(value);
+  Color7.gammaToLinearSpace = function gammaToLinearSpace(value) {
+    return Color7.sRGBToLinearSpace(value);
   };
-  Color6.linearToGammaSpace = function linearToGammaSpace(value) {
-    return Color6.linearToSRGBSpace(value);
+  Color7.linearToGammaSpace = function linearToGammaSpace(value) {
+    return Color7.linearToSRGBSpace(value);
   };
-  _create_class(Color6, [
+  _create_class(Color7, [
     {
       key: "r",
       get: (
@@ -4910,7 +4910,7 @@ var Color2 = /* @__PURE__ */ (function() {
       }
     }
   ]);
-  return Color6;
+  return Color7;
 })();
 var Rect = /* @__PURE__ */ (function() {
   function Rect2(x, y, width, height) {
@@ -7097,15 +7097,15 @@ var SubFont = /* @__PURE__ */ (function() {
   return SubFont2;
 })();
 var Font = /* @__PURE__ */ (function(ReferResource2) {
-  _inherits(Font2, ReferResource2);
-  function Font2(engine, name) {
+  _inherits(Font3, ReferResource2);
+  function Font3(engine, name) {
     if (name === void 0) name = "";
     var _this;
     _this = ReferResource2.call(this, engine) || this, _this._name = "", _this._subFontMap = {};
     _this._name = name;
     return _this;
   }
-  var _proto = Font2.prototype;
+  var _proto = Font3.prototype;
   _proto._getSubFont = function _getSubFont(fontSize, fontStyle) {
     var key = fontSize + "-" + fontStyle;
     var subFontMap = this._subFontMap;
@@ -7126,20 +7126,20 @@ var Font = /* @__PURE__ */ (function(ReferResource2) {
     this._subFontMap = null;
     delete this.engine._fontMap[this._name];
   };
-  Font2.createFromOS = function createFromOS(engine, name) {
+  Font3.createFromOS = function createFromOS(engine, name) {
     if (name) {
       var fontMap = engine._fontMap;
       var font = fontMap[name];
       if (font) {
         return font;
       }
-      font = new Font2(engine, name);
+      font = new Font3(engine, name);
       fontMap[name] = font;
       return font;
     }
     return null;
   };
-  _create_class2(Font2, [
+  _create_class2(Font3, [
     {
       key: "name",
       get: (
@@ -7152,7 +7152,7 @@ var Font = /* @__PURE__ */ (function(ReferResource2) {
       )
     }
   ]);
-  return Font2;
+  return Font3;
 })(ReferResource);
 function StaticInterfaceImplement() {
   return function(constructor) {
@@ -7654,9 +7654,9 @@ var Time = /* @__PURE__ */ (function() {
 Time._elapsedTimeProperty = ShaderProperty.getByName("scene_ElapsedTime");
 Time._deltaTimeProperty = ShaderProperty.getByName("scene_DeltaTime");
 var Utils = /* @__PURE__ */ (function() {
-  function Utils2() {
+  function Utils3() {
   }
-  Utils2.removeFromArray = function removeFromArray(array, item) {
+  Utils3.removeFromArray = function removeFromArray(array, item) {
     var index = array.indexOf(item);
     if (index < 0) {
       return false;
@@ -7669,7 +7669,7 @@ var Utils = /* @__PURE__ */ (function() {
     array.length--;
     return true;
   };
-  Utils2.decodeText = function decodeText(array) {
+  Utils3.decodeText = function decodeText(array) {
     if (typeof TextDecoder !== "undefined") {
       return new TextDecoder().decode(array);
     }
@@ -7679,25 +7679,25 @@ var Utils = /* @__PURE__ */ (function() {
     }
     return decodeURIComponent(encodeURIComponent(s));
   };
-  Utils2.isAbsoluteUrl = function isAbsoluteUrl(url) {
+  Utils3.isAbsoluteUrl = function isAbsoluteUrl(url) {
     return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
   };
-  Utils2.isBase64Url = function isBase64Url(url) {
+  Utils3.isBase64Url = function isBase64Url(url) {
     return /^data:.*,.*$/i.test(url);
   };
-  Utils2.objectValues = function objectValues(obj) {
+  Utils3.objectValues = function objectValues(obj) {
     return Object.keys(obj).map(function(key) {
       return obj[key];
     });
   };
-  Utils2.resolveAbsoluteUrl = function resolveAbsoluteUrl(baseUrl, relativeUrl) {
-    if (Utils2.isAbsoluteUrl(relativeUrl)) {
+  Utils3.resolveAbsoluteUrl = function resolveAbsoluteUrl(baseUrl, relativeUrl) {
+    if (Utils3.isAbsoluteUrl(relativeUrl)) {
       return relativeUrl;
     }
-    if (Utils2.isBase64Url(relativeUrl)) {
+    if (Utils3.isBase64Url(relativeUrl)) {
       return relativeUrl;
     }
-    if (Utils2.isAbsoluteUrl(baseUrl)) {
+    if (Utils3.isAbsoluteUrl(baseUrl)) {
       return relativeUrl ? new URL(relativeUrl, baseUrl).href : baseUrl;
     }
     var head = "file://";
@@ -7705,7 +7705,7 @@ var Utils = /* @__PURE__ */ (function() {
     var encodedRelativeUrl = this._encodePathComponents(relativeUrl);
     return decodeURIComponent(new URL(encodedRelativeUrl, encodedBaseUrl).href.slice(head.length));
   };
-  Utils2._floatMatrixMultiply = function _floatMatrixMultiply(left, re, rOffset, oe, offset) {
+  Utils3._floatMatrixMultiply = function _floatMatrixMultiply(left, re, rOffset, oe, offset) {
     var le = left.elements;
     var l11 = le[0], l12 = le[1], l13 = le[2], l14 = le[3], l21 = le[4], l22 = le[5], l23 = le[6], l24 = le[7], l31 = le[8], l32 = le[9], l33 = le[10], l34 = le[11], l41 = le[12], l42 = le[13], l43 = le[14], l44 = le[15];
     var r11 = re[rOffset], r12 = re[rOffset + 1], r13 = re[rOffset + 2], r14 = re[rOffset + 3], r21 = re[rOffset + 4], r22 = re[rOffset + 5], r23 = re[rOffset + 6], r24 = re[rOffset + 7], r31 = re[rOffset + 8], r32 = re[rOffset + 9], r33 = re[rOffset + 10], r34 = re[rOffset + 11], r41 = re[rOffset + 12], r42 = re[rOffset + 13], r43 = re[rOffset + 14], r44 = re[rOffset + 15];
@@ -7726,7 +7726,7 @@ var Utils = /* @__PURE__ */ (function() {
     oe[offset + 14] = l13 * r41 + l23 * r42 + l33 * r43 + l43 * r44;
     oe[offset + 15] = l14 * r41 + l24 * r42 + l34 * r43 + l44 * r44;
   };
-  Utils2._reflectGet = function _reflectGet(target, path) {
+  Utils3._reflectGet = function _reflectGet(target, path) {
     var pathArr = this._stringToPath(path);
     var object = target;
     var index = 0;
@@ -7736,7 +7736,7 @@ var Utils = /* @__PURE__ */ (function() {
     }
     return index && index == length ? object : void 0;
   };
-  Utils2._quickSort = function _quickSort(a, from, to, compareFunc) {
+  Utils3._quickSort = function _quickSort(a, from, to, compareFunc) {
     while (true) {
       if (to - from <= 10) {
         this._insertionSort(a, from, to, compareFunc);
@@ -7806,7 +7806,7 @@ var Utils = /* @__PURE__ */ (function() {
       }
     }
   };
-  Utils2._stringToPath = function _stringToPath(string) {
+  Utils3._stringToPath = function _stringToPath(string) {
     var result = [];
     if (string.charCodeAt(0) === charCodeOfDot$1) {
       result.push("");
@@ -7822,7 +7822,7 @@ var Utils = /* @__PURE__ */ (function() {
     });
     return result;
   };
-  Utils2._insertionSort = function _insertionSort(a, from, to, compareFunc) {
+  Utils3._insertionSort = function _insertionSort(a, from, to, compareFunc) {
     for (var i = from + 1; i < to; i++) {
       var j = void 0;
       var element = a[i];
@@ -7838,10 +7838,10 @@ var Utils = /* @__PURE__ */ (function() {
       a[j + 1] = element;
     }
   };
-  Utils2._encodePathComponents = function _encodePathComponents(path) {
+  Utils3._encodePathComponents = function _encodePathComponents(path) {
     return path.split("/").map(encodeURIComponent).join("/");
   };
-  return Utils2;
+  return Utils3;
 })();
 var charCodeOfDot$1 = ".".charCodeAt(0);
 var reEscapeChar$1 = /\\(\\)?/g;
@@ -8269,11 +8269,11 @@ var SpriteModifyFlags = /* @__PURE__ */ (function(SpriteModifyFlags2) {
   SpriteModifyFlags2[SpriteModifyFlags2["destroy"] = 256] = "destroy";
   return SpriteModifyFlags2;
 })({});
-var TextHorizontalAlignment = /* @__PURE__ */ (function(TextHorizontalAlignment2) {
-  TextHorizontalAlignment2[TextHorizontalAlignment2["Left"] = 0] = "Left";
-  TextHorizontalAlignment2[TextHorizontalAlignment2["Center"] = 1] = "Center";
-  TextHorizontalAlignment2[TextHorizontalAlignment2["Right"] = 2] = "Right";
-  return TextHorizontalAlignment2;
+var TextHorizontalAlignment = /* @__PURE__ */ (function(TextHorizontalAlignment3) {
+  TextHorizontalAlignment3[TextHorizontalAlignment3["Left"] = 0] = "Left";
+  TextHorizontalAlignment3[TextHorizontalAlignment3["Center"] = 1] = "Center";
+  TextHorizontalAlignment3[TextHorizontalAlignment3["Right"] = 2] = "Right";
+  return TextHorizontalAlignment3;
 })({});
 var TextVerticalAlignment = /* @__PURE__ */ (function(TextVerticalAlignment2) {
   TextVerticalAlignment2[TextVerticalAlignment2["Top"] = 0] = "Top";
@@ -13974,10 +13974,10 @@ __decorate([
 Camera = __decorate([
   dependentComponents(Transform, DependentMode.CheckOnly)
 ], Camera);
-var BlendMode = /* @__PURE__ */ (function(BlendMode2) {
-  BlendMode2[BlendMode2["Normal"] = 0] = "Normal";
-  BlendMode2[BlendMode2["Additive"] = 1] = "Additive";
-  return BlendMode2;
+var BlendMode = /* @__PURE__ */ (function(BlendMode3) {
+  BlendMode3[BlendMode3["Normal"] = 0] = "Normal";
+  BlendMode3[BlendMode3["Additive"] = 1] = "Additive";
+  return BlendMode3;
 })({});
 var RenderFace = /* @__PURE__ */ (function(RenderFace2) {
   RenderFace2[RenderFace2["Front"] = 0] = "Front";
@@ -27243,13 +27243,13 @@ var Entity3 = /* @__PURE__ */ (function(EngineObject2) {
   return Entity6;
 })(EngineObject);
 var Skin = /* @__PURE__ */ (function(EngineObject2) {
-  _inherits(Skin2, EngineObject2);
-  function Skin2(name) {
+  _inherits(Skin3, EngineObject2);
+  function Skin3(name) {
     var _this;
     _this = EngineObject2.call(this, null) || this, _this.name = name, _this.inverseBindMatrices = new Array(), _this._updatedManager = new UpdateFlagManager(), _this._bones = new Array(), _this._updateMark = -1, _this.joints = [];
     return _this;
   }
-  var _proto = Skin2.prototype;
+  var _proto = Skin3.prototype;
   _proto._updateSkinMatrices = function _updateSkinMatrices(renderer) {
     if (this._updateMark === renderer.engine.time.frameCount) {
       return;
@@ -27288,7 +27288,7 @@ var Skin = /* @__PURE__ */ (function(EngineObject2) {
       target.bones = destBones;
     }
   };
-  _create_class2(Skin2, [
+  _create_class2(Skin3, [
     {
       key: "rootBone",
       get: (
@@ -27348,7 +27348,7 @@ var Skin = /* @__PURE__ */ (function(EngineObject2) {
       }
     }
   ]);
-  return Skin2;
+  return Skin3;
 })(EngineObject);
 __decorate([
   deepClone
@@ -41760,15 +41760,1946 @@ var WebGLGraphicDevice = /* @__PURE__ */ (function() {
 // src/types/GalaceanTypes.ts
 import {
   Entity as Entity4,
-  Vector2 as Vector23,
+  Vector2 as Vector24,
   Vector3 as Vector33,
-  Color as Color3,
+  Color as Color4,
   SpriteRenderer as SpriteRenderer3,
   Sprite as Sprite3,
   TextRenderer as TextRenderer2
 } from "@galacean/engine";
-import { LottieComponent } from "@galacean/engine-lottie";
-import { SkeletonAnimationComponent, SkeletonData } from "@galacean/engine-spine";
+import { LottieAnimation } from "@galacean/engine-lottie";
+import { SpineAnimationRenderer } from "@galacean/engine-spine";
+
+// node_modules/@esotericsoftware/spine-core/dist/Utils.js
+var StringSet = class {
+  entries = {};
+  size = 0;
+  add(value) {
+    let contains = this.entries[value];
+    this.entries[value] = true;
+    if (!contains) {
+      this.size++;
+      return true;
+    }
+    return false;
+  }
+  addAll(values) {
+    let oldSize = this.size;
+    for (var i = 0, n = values.length; i < n; i++)
+      this.add(values[i]);
+    return oldSize != this.size;
+  }
+  contains(value) {
+    return this.entries[value];
+  }
+  clear() {
+    this.entries = {};
+    this.size = 0;
+  }
+};
+var Color3 = class _Color {
+  r;
+  g;
+  b;
+  a;
+  static WHITE = new _Color(1, 1, 1, 1);
+  static RED = new _Color(1, 0, 0, 1);
+  static GREEN = new _Color(0, 1, 0, 1);
+  static BLUE = new _Color(0, 0, 1, 1);
+  static MAGENTA = new _Color(1, 0, 1, 1);
+  constructor(r = 0, g = 0, b = 0, a = 0) {
+    this.r = r;
+    this.g = g;
+    this.b = b;
+    this.a = a;
+  }
+  set(r, g, b, a) {
+    this.r = r;
+    this.g = g;
+    this.b = b;
+    this.a = a;
+    return this.clamp();
+  }
+  setFromColor(c) {
+    this.r = c.r;
+    this.g = c.g;
+    this.b = c.b;
+    this.a = c.a;
+    return this;
+  }
+  setFromString(hex) {
+    hex = hex.charAt(0) == "#" ? hex.substr(1) : hex;
+    this.r = parseInt(hex.substr(0, 2), 16) / 255;
+    this.g = parseInt(hex.substr(2, 2), 16) / 255;
+    this.b = parseInt(hex.substr(4, 2), 16) / 255;
+    this.a = hex.length != 8 ? 1 : parseInt(hex.substr(6, 2), 16) / 255;
+    return this;
+  }
+  add(r, g, b, a) {
+    this.r += r;
+    this.g += g;
+    this.b += b;
+    this.a += a;
+    return this.clamp();
+  }
+  clamp() {
+    if (this.r < 0)
+      this.r = 0;
+    else if (this.r > 1)
+      this.r = 1;
+    if (this.g < 0)
+      this.g = 0;
+    else if (this.g > 1)
+      this.g = 1;
+    if (this.b < 0)
+      this.b = 0;
+    else if (this.b > 1)
+      this.b = 1;
+    if (this.a < 0)
+      this.a = 0;
+    else if (this.a > 1)
+      this.a = 1;
+    return this;
+  }
+  static rgba8888ToColor(color, value) {
+    color.r = ((value & 4278190080) >>> 24) / 255;
+    color.g = ((value & 16711680) >>> 16) / 255;
+    color.b = ((value & 65280) >>> 8) / 255;
+    color.a = (value & 255) / 255;
+  }
+  static rgb888ToColor(color, value) {
+    color.r = ((value & 16711680) >>> 16) / 255;
+    color.g = ((value & 65280) >>> 8) / 255;
+    color.b = (value & 255) / 255;
+  }
+  toRgb888() {
+    const hex = (x) => ("0" + (x * 255).toString(16)).slice(-2);
+    return Number("0x" + hex(this.r) + hex(this.g) + hex(this.b));
+  }
+  static fromString(hex, color = new _Color()) {
+    return color.setFromString(hex);
+  }
+};
+var MathUtils = class _MathUtils {
+  static PI = 3.1415927;
+  static PI2 = _MathUtils.PI * 2;
+  static invPI2 = 1 / _MathUtils.PI2;
+  static radiansToDegrees = 180 / _MathUtils.PI;
+  static radDeg = _MathUtils.radiansToDegrees;
+  static degreesToRadians = _MathUtils.PI / 180;
+  static degRad = _MathUtils.degreesToRadians;
+  static clamp(value, min, max) {
+    if (value < min)
+      return min;
+    if (value > max)
+      return max;
+    return value;
+  }
+  static cosDeg(degrees) {
+    return Math.cos(degrees * _MathUtils.degRad);
+  }
+  static sinDeg(degrees) {
+    return Math.sin(degrees * _MathUtils.degRad);
+  }
+  static atan2Deg(y, x) {
+    return Math.atan2(y, x) * _MathUtils.degRad;
+  }
+  static signum(value) {
+    return value > 0 ? 1 : value < 0 ? -1 : 0;
+  }
+  static toInt(x) {
+    return x > 0 ? Math.floor(x) : Math.ceil(x);
+  }
+  static cbrt(x) {
+    let y = Math.pow(Math.abs(x), 1 / 3);
+    return x < 0 ? -y : y;
+  }
+  static randomTriangular(min, max) {
+    return _MathUtils.randomTriangularWith(min, max, (min + max) * 0.5);
+  }
+  static randomTriangularWith(min, max, mode) {
+    let u = Math.random();
+    let d = max - min;
+    if (u <= (mode - min) / d)
+      return min + Math.sqrt(u * d * (mode - min));
+    return max - Math.sqrt((1 - u) * d * (max - mode));
+  }
+  static isPowerOfTwo(value) {
+    return value && (value & value - 1) === 0;
+  }
+};
+var Utils2 = class _Utils {
+  static SUPPORTS_TYPED_ARRAYS = typeof Float32Array !== "undefined";
+  static arrayCopy(source, sourceStart, dest, destStart, numElements) {
+    for (let i = sourceStart, j = destStart; i < sourceStart + numElements; i++, j++) {
+      dest[j] = source[i];
+    }
+  }
+  static arrayFill(array, fromIndex, toIndex, value) {
+    for (let i = fromIndex; i < toIndex; i++)
+      array[i] = value;
+  }
+  static setArraySize(array, size, value = 0) {
+    let oldSize = array.length;
+    if (oldSize == size)
+      return array;
+    array.length = size;
+    if (oldSize < size) {
+      for (let i = oldSize; i < size; i++)
+        array[i] = value;
+    }
+    return array;
+  }
+  static ensureArrayCapacity(array, size, value = 0) {
+    if (array.length >= size)
+      return array;
+    return _Utils.setArraySize(array, size, value);
+  }
+  static newArray(size, defaultValue) {
+    let array = new Array(size);
+    for (let i = 0; i < size; i++)
+      array[i] = defaultValue;
+    return array;
+  }
+  static newFloatArray(size) {
+    if (_Utils.SUPPORTS_TYPED_ARRAYS)
+      return new Float32Array(size);
+    else {
+      let array = new Array(size);
+      for (let i = 0; i < array.length; i++)
+        array[i] = 0;
+      return array;
+    }
+  }
+  static newShortArray(size) {
+    if (_Utils.SUPPORTS_TYPED_ARRAYS)
+      return new Int16Array(size);
+    else {
+      let array = new Array(size);
+      for (let i = 0; i < array.length; i++)
+        array[i] = 0;
+      return array;
+    }
+  }
+  static toFloatArray(array) {
+    return _Utils.SUPPORTS_TYPED_ARRAYS ? new Float32Array(array) : array;
+  }
+  static toSinglePrecision(value) {
+    return _Utils.SUPPORTS_TYPED_ARRAYS ? Math.fround(value) : value;
+  }
+  // This function is used to fix WebKit 602 specific issue described at http://esotericsoftware.com/forum/iOS-10-disappearing-graphics-10109
+  static webkit602BugfixHelper(alpha, blend) {
+  }
+  static contains(array, element, identity = true) {
+    for (var i = 0; i < array.length; i++)
+      if (array[i] == element)
+        return true;
+    return false;
+  }
+  static enumValue(type, name) {
+    return type[name[0].toUpperCase() + name.slice(1)];
+  }
+};
+var Pool = class {
+  items = new Array();
+  instantiator;
+  constructor(instantiator) {
+    this.instantiator = instantiator;
+  }
+  obtain() {
+    return this.items.length > 0 ? this.items.pop() : this.instantiator();
+  }
+  free(item) {
+    if (item.reset)
+      item.reset();
+    this.items.push(item);
+  }
+  freeAll(items) {
+    for (let i = 0; i < items.length; i++)
+      this.free(items[i]);
+  }
+  clear() {
+    this.items.length = 0;
+  }
+};
+
+// node_modules/@esotericsoftware/spine-core/dist/attachments/Sequence.js
+var SequenceMode;
+(function(SequenceMode2) {
+  SequenceMode2[SequenceMode2["hold"] = 0] = "hold";
+  SequenceMode2[SequenceMode2["once"] = 1] = "once";
+  SequenceMode2[SequenceMode2["loop"] = 2] = "loop";
+  SequenceMode2[SequenceMode2["pingpong"] = 3] = "pingpong";
+  SequenceMode2[SequenceMode2["onceReverse"] = 4] = "onceReverse";
+  SequenceMode2[SequenceMode2["loopReverse"] = 5] = "loopReverse";
+  SequenceMode2[SequenceMode2["pingpongReverse"] = 6] = "pingpongReverse";
+})(SequenceMode || (SequenceMode = {}));
+var SequenceModeValues = [
+  SequenceMode.hold,
+  SequenceMode.once,
+  SequenceMode.loop,
+  SequenceMode.pingpong,
+  SequenceMode.onceReverse,
+  SequenceMode.loopReverse,
+  SequenceMode.pingpongReverse
+];
+
+// node_modules/@esotericsoftware/spine-core/dist/Animation.js
+var Animation = class {
+  /** The animation's name, which is unique across all animations in the skeleton. */
+  name;
+  timelines = [];
+  timelineIds = new StringSet();
+  /** The duration of the animation in seconds, which is the highest time of all keys in the timeline. */
+  duration;
+  constructor(name, timelines, duration) {
+    if (!name)
+      throw new Error("name cannot be null.");
+    this.name = name;
+    this.setTimelines(timelines);
+    this.duration = duration;
+  }
+  setTimelines(timelines) {
+    if (!timelines)
+      throw new Error("timelines cannot be null.");
+    this.timelines = timelines;
+    this.timelineIds.clear();
+    for (var i = 0; i < timelines.length; i++)
+      this.timelineIds.addAll(timelines[i].getPropertyIds());
+  }
+  hasTimeline(ids) {
+    for (let i = 0; i < ids.length; i++)
+      if (this.timelineIds.contains(ids[i]))
+        return true;
+    return false;
+  }
+  /** Applies all the animation's timelines to the specified skeleton.
+   *
+   * See Timeline {@link Timeline#apply(Skeleton, float, float, Array, float, MixBlend, MixDirection)}.
+   * @param loop If true, the animation repeats after {@link #getDuration()}.
+   * @param events May be null to ignore fired events. */
+  apply(skeleton, lastTime, time, loop, events, alpha, blend, direction) {
+    if (!skeleton)
+      throw new Error("skeleton cannot be null.");
+    if (loop && this.duration != 0) {
+      time %= this.duration;
+      if (lastTime > 0)
+        lastTime %= this.duration;
+    }
+    let timelines = this.timelines;
+    for (let i = 0, n = timelines.length; i < n; i++)
+      timelines[i].apply(skeleton, lastTime, time, events, alpha, blend, direction);
+  }
+};
+var MixBlend;
+(function(MixBlend2) {
+  MixBlend2[MixBlend2["setup"] = 0] = "setup";
+  MixBlend2[MixBlend2["first"] = 1] = "first";
+  MixBlend2[MixBlend2["replace"] = 2] = "replace";
+  MixBlend2[MixBlend2["add"] = 3] = "add";
+})(MixBlend || (MixBlend = {}));
+var MixDirection;
+(function(MixDirection2) {
+  MixDirection2[MixDirection2["mixIn"] = 0] = "mixIn";
+  MixDirection2[MixDirection2["mixOut"] = 1] = "mixOut";
+})(MixDirection || (MixDirection = {}));
+var Property = {
+  rotate: 0,
+  x: 1,
+  y: 2,
+  scaleX: 3,
+  scaleY: 4,
+  shearX: 5,
+  shearY: 6,
+  inherit: 7,
+  rgb: 8,
+  alpha: 9,
+  rgb2: 10,
+  attachment: 11,
+  deform: 12,
+  event: 13,
+  drawOrder: 14,
+  ikConstraint: 15,
+  transformConstraint: 16,
+  pathConstraintPosition: 17,
+  pathConstraintSpacing: 18,
+  pathConstraintMix: 19,
+  physicsConstraintInertia: 20,
+  physicsConstraintStrength: 21,
+  physicsConstraintDamping: 22,
+  physicsConstraintMass: 23,
+  physicsConstraintWind: 24,
+  physicsConstraintGravity: 25,
+  physicsConstraintMix: 26,
+  physicsConstraintReset: 27,
+  sequence: 28
+};
+var Timeline = class {
+  propertyIds;
+  frames;
+  constructor(frameCount, propertyIds) {
+    this.propertyIds = propertyIds;
+    this.frames = Utils2.newFloatArray(frameCount * this.getFrameEntries());
+  }
+  getPropertyIds() {
+    return this.propertyIds;
+  }
+  getFrameEntries() {
+    return 1;
+  }
+  getFrameCount() {
+    return this.frames.length / this.getFrameEntries();
+  }
+  getDuration() {
+    return this.frames[this.frames.length - this.getFrameEntries()];
+  }
+  static search1(frames, time) {
+    let n = frames.length;
+    for (let i = 1; i < n; i++)
+      if (frames[i] > time)
+        return i - 1;
+    return n - 1;
+  }
+  static search(frames, time, step) {
+    let n = frames.length;
+    for (let i = step; i < n; i += step)
+      if (frames[i] > time)
+        return i - step;
+    return n - step;
+  }
+};
+var CurveTimeline = class extends Timeline {
+  curves;
+  // type, x, y, ...
+  constructor(frameCount, bezierCount, propertyIds) {
+    super(frameCount, propertyIds);
+    this.curves = Utils2.newFloatArray(
+      frameCount + bezierCount * 18
+      /*BEZIER_SIZE*/
+    );
+    this.curves[frameCount - 1] = 1;
+  }
+  /** Sets the specified key frame to linear interpolation. */
+  setLinear(frame) {
+    this.curves[frame] = 0;
+  }
+  /** Sets the specified key frame to stepped interpolation. */
+  setStepped(frame) {
+    this.curves[frame] = 1;
+  }
+  /** Shrinks the storage for Bezier curves, for use when <code>bezierCount</code> (specified in the constructor) was larger
+   * than the actual number of Bezier curves. */
+  shrink(bezierCount) {
+    let size = this.getFrameCount() + bezierCount * 18;
+    if (this.curves.length > size) {
+      let newCurves = Utils2.newFloatArray(size);
+      Utils2.arrayCopy(this.curves, 0, newCurves, 0, size);
+      this.curves = newCurves;
+    }
+  }
+  /** Stores the segments for the specified Bezier curve. For timelines that modify multiple values, there may be more than
+   * one curve per frame.
+   * @param bezier The ordinal of this Bezier curve for this timeline, between 0 and <code>bezierCount - 1</code> (specified
+   *           in the constructor), inclusive.
+   * @param frame Between 0 and <code>frameCount - 1</code>, inclusive.
+   * @param value The index of the value for this frame that this curve is used for.
+   * @param time1 The time for the first key.
+   * @param value1 The value for the first key.
+   * @param cx1 The time for the first Bezier handle.
+   * @param cy1 The value for the first Bezier handle.
+   * @param cx2 The time of the second Bezier handle.
+   * @param cy2 The value for the second Bezier handle.
+   * @param time2 The time for the second key.
+   * @param value2 The value for the second key. */
+  setBezier(bezier, frame, value, time1, value1, cx1, cy1, cx2, cy2, time2, value2) {
+    let curves = this.curves;
+    let i = this.getFrameCount() + bezier * 18;
+    if (value == 0)
+      curves[frame] = 2 + i;
+    let tmpx = (time1 - cx1 * 2 + cx2) * 0.03, tmpy = (value1 - cy1 * 2 + cy2) * 0.03;
+    let dddx = ((cx1 - cx2) * 3 - time1 + time2) * 6e-3, dddy = ((cy1 - cy2) * 3 - value1 + value2) * 6e-3;
+    let ddx = tmpx * 2 + dddx, ddy = tmpy * 2 + dddy;
+    let dx = (cx1 - time1) * 0.3 + tmpx + dddx * 0.16666667, dy = (cy1 - value1) * 0.3 + tmpy + dddy * 0.16666667;
+    let x = time1 + dx, y = value1 + dy;
+    for (let n = i + 18; i < n; i += 2) {
+      curves[i] = x;
+      curves[i + 1] = y;
+      dx += ddx;
+      dy += ddy;
+      ddx += dddx;
+      ddy += dddy;
+      x += dx;
+      y += dy;
+    }
+  }
+  /** Returns the Bezier interpolated value for the specified time.
+   * @param frameIndex The index into {@link #getFrames()} for the values of the frame before <code>time</code>.
+   * @param valueOffset The offset from <code>frameIndex</code> to the value this curve is used for.
+   * @param i The index of the Bezier segments. See {@link #getCurveType(int)}. */
+  getBezierValue(time, frameIndex, valueOffset, i) {
+    let curves = this.curves;
+    if (curves[i] > time) {
+      let x2 = this.frames[frameIndex], y2 = this.frames[frameIndex + valueOffset];
+      return y2 + (time - x2) / (curves[i] - x2) * (curves[i + 1] - y2);
+    }
+    let n = i + 18;
+    for (i += 2; i < n; i += 2) {
+      if (curves[i] >= time) {
+        let x2 = curves[i - 2], y2 = curves[i - 1];
+        return y2 + (time - x2) / (curves[i] - x2) * (curves[i + 1] - y2);
+      }
+    }
+    frameIndex += this.getFrameEntries();
+    let x = curves[n - 2], y = curves[n - 1];
+    return y + (time - x) / (this.frames[frameIndex] - x) * (this.frames[frameIndex + valueOffset] - y);
+  }
+};
+var CurveTimeline1 = class extends CurveTimeline {
+  constructor(frameCount, bezierCount, propertyId) {
+    super(frameCount, bezierCount, [propertyId]);
+  }
+  getFrameEntries() {
+    return 2;
+  }
+  /** Sets the time and value for the specified frame.
+   * @param frame Between 0 and <code>frameCount</code>, inclusive.
+   * @param time The frame time in seconds. */
+  setFrame(frame, time, value) {
+    frame <<= 1;
+    this.frames[frame] = time;
+    this.frames[
+      frame + 1
+      /*VALUE*/
+    ] = value;
+  }
+  /** Returns the interpolated value for the specified time. */
+  getCurveValue(time) {
+    let frames = this.frames;
+    let i = frames.length - 2;
+    for (let ii = 2; ii <= i; ii += 2) {
+      if (frames[ii] > time) {
+        i = ii - 2;
+        break;
+      }
+    }
+    let curveType = this.curves[i >> 1];
+    switch (curveType) {
+      case 0:
+        let before = frames[i], value = frames[
+          i + 1
+          /*VALUE*/
+        ];
+        return value + (time - before) / (frames[
+          i + 2
+          /*ENTRIES*/
+        ] - before) * (frames[
+          i + 2 + 1
+          /*VALUE*/
+        ] - value);
+      case 1:
+        return frames[
+          i + 1
+          /*VALUE*/
+        ];
+    }
+    return this.getBezierValue(
+      time,
+      i,
+      1,
+      curveType - 2
+      /*BEZIER*/
+    );
+  }
+  getRelativeValue(time, alpha, blend, current, setup) {
+    if (time < this.frames[0]) {
+      switch (blend) {
+        case MixBlend.setup:
+          return setup;
+        case MixBlend.first:
+          return current + (setup - current) * alpha;
+      }
+      return current;
+    }
+    let value = this.getCurveValue(time);
+    switch (blend) {
+      case MixBlend.setup:
+        return setup + value * alpha;
+      case MixBlend.first:
+      case MixBlend.replace:
+        value += setup - current;
+    }
+    return current + value * alpha;
+  }
+  getAbsoluteValue(time, alpha, blend, current, setup) {
+    if (time < this.frames[0]) {
+      switch (blend) {
+        case MixBlend.setup:
+          return setup;
+        case MixBlend.first:
+          return current + (setup - current) * alpha;
+      }
+      return current;
+    }
+    let value = this.getCurveValue(time);
+    if (blend == MixBlend.setup)
+      return setup + (value - setup) * alpha;
+    return current + (value - current) * alpha;
+  }
+  getAbsoluteValue2(time, alpha, blend, current, setup, value) {
+    if (time < this.frames[0]) {
+      switch (blend) {
+        case MixBlend.setup:
+          return setup;
+        case MixBlend.first:
+          return current + (setup - current) * alpha;
+      }
+      return current;
+    }
+    if (blend == MixBlend.setup)
+      return setup + (value - setup) * alpha;
+    return current + (value - current) * alpha;
+  }
+  getScaleValue(time, alpha, blend, direction, current, setup) {
+    const frames = this.frames;
+    if (time < frames[0]) {
+      switch (blend) {
+        case MixBlend.setup:
+          return setup;
+        case MixBlend.first:
+          return current + (setup - current) * alpha;
+      }
+      return current;
+    }
+    let value = this.getCurveValue(time) * setup;
+    if (alpha == 1) {
+      if (blend == MixBlend.add)
+        return current + value - setup;
+      return value;
+    }
+    if (direction == MixDirection.mixOut) {
+      switch (blend) {
+        case MixBlend.setup:
+          return setup + (Math.abs(value) * MathUtils.signum(setup) - setup) * alpha;
+        case MixBlend.first:
+        case MixBlend.replace:
+          return current + (Math.abs(value) * MathUtils.signum(current) - current) * alpha;
+      }
+    } else {
+      let s = 0;
+      switch (blend) {
+        case MixBlend.setup:
+          s = Math.abs(setup) * MathUtils.signum(value);
+          return s + (value - s) * alpha;
+        case MixBlend.first:
+        case MixBlend.replace:
+          s = Math.abs(current) * MathUtils.signum(value);
+          return s + (value - s) * alpha;
+      }
+    }
+    return current + (value - setup) * alpha;
+  }
+};
+var RotateTimeline = class extends CurveTimeline1 {
+  boneIndex = 0;
+  constructor(frameCount, bezierCount, boneIndex) {
+    super(frameCount, bezierCount, Property.rotate + "|" + boneIndex);
+    this.boneIndex = boneIndex;
+  }
+  apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+    let bone = skeleton.bones[this.boneIndex];
+    if (bone.active)
+      bone.rotation = this.getRelativeValue(time, alpha, blend, bone.rotation, bone.data.rotation);
+  }
+};
+var AttachmentTimeline = class extends Timeline {
+  slotIndex = 0;
+  /** The attachment name for each key frame. May contain null values to clear the attachment. */
+  attachmentNames;
+  constructor(frameCount, slotIndex) {
+    super(frameCount, [
+      Property.attachment + "|" + slotIndex
+    ]);
+    this.slotIndex = slotIndex;
+    this.attachmentNames = new Array(frameCount);
+  }
+  getFrameCount() {
+    return this.frames.length;
+  }
+  /** Sets the time in seconds and the attachment name for the specified key frame. */
+  setFrame(frame, time, attachmentName) {
+    this.frames[frame] = time;
+    this.attachmentNames[frame] = attachmentName;
+  }
+  apply(skeleton, lastTime, time, events, alpha, blend, direction) {
+    let slot = skeleton.slots[this.slotIndex];
+    if (!slot.bone.active)
+      return;
+    if (direction == MixDirection.mixOut) {
+      if (blend == MixBlend.setup)
+        this.setAttachment(skeleton, slot, slot.data.attachmentName);
+      return;
+    }
+    if (time < this.frames[0]) {
+      if (blend == MixBlend.setup || blend == MixBlend.first)
+        this.setAttachment(skeleton, slot, slot.data.attachmentName);
+      return;
+    }
+    this.setAttachment(skeleton, slot, this.attachmentNames[Timeline.search1(this.frames, time)]);
+  }
+  setAttachment(skeleton, slot, attachmentName) {
+    slot.setAttachment(!attachmentName ? null : skeleton.getAttachment(this.slotIndex, attachmentName));
+  }
+};
+var EventTimeline = class _EventTimeline extends Timeline {
+  static propertyIds = ["" + Property.event];
+  /** The event for each key frame. */
+  events;
+  constructor(frameCount) {
+    super(frameCount, _EventTimeline.propertyIds);
+    this.events = new Array(frameCount);
+  }
+  getFrameCount() {
+    return this.frames.length;
+  }
+  /** Sets the time in seconds and the event for the specified key frame. */
+  setFrame(frame, event) {
+    this.frames[frame] = event.time;
+    this.events[frame] = event;
+  }
+  /** Fires events for frames > `lastTime` and <= `time`. */
+  apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+    if (!firedEvents)
+      return;
+    let frames = this.frames;
+    let frameCount = this.frames.length;
+    if (lastTime > time) {
+      this.apply(skeleton, lastTime, Number.MAX_VALUE, firedEvents, alpha, blend, direction);
+      lastTime = -1;
+    } else if (lastTime >= frames[frameCount - 1])
+      return;
+    if (time < frames[0])
+      return;
+    let i = 0;
+    if (lastTime < frames[0])
+      i = 0;
+    else {
+      i = Timeline.search1(frames, lastTime) + 1;
+      let frameTime = frames[i];
+      while (i > 0) {
+        if (frames[i - 1] != frameTime)
+          break;
+        i--;
+      }
+    }
+    for (; i < frameCount && time >= frames[i]; i++)
+      firedEvents.push(this.events[i]);
+  }
+};
+var DrawOrderTimeline = class _DrawOrderTimeline extends Timeline {
+  static propertyIds = ["" + Property.drawOrder];
+  /** The draw order for each key frame. See {@link #setFrame(int, float, int[])}. */
+  drawOrders;
+  constructor(frameCount) {
+    super(frameCount, _DrawOrderTimeline.propertyIds);
+    this.drawOrders = new Array(frameCount);
+  }
+  getFrameCount() {
+    return this.frames.length;
+  }
+  /** Sets the time in seconds and the draw order for the specified key frame.
+   * @param drawOrder For each slot in {@link Skeleton#slots}, the index of the new draw order. May be null to use setup pose
+   *           draw order. */
+  setFrame(frame, time, drawOrder) {
+    this.frames[frame] = time;
+    this.drawOrders[frame] = drawOrder;
+  }
+  apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+    if (direction == MixDirection.mixOut) {
+      if (blend == MixBlend.setup)
+        Utils2.arrayCopy(skeleton.slots, 0, skeleton.drawOrder, 0, skeleton.slots.length);
+      return;
+    }
+    if (time < this.frames[0]) {
+      if (blend == MixBlend.setup || blend == MixBlend.first)
+        Utils2.arrayCopy(skeleton.slots, 0, skeleton.drawOrder, 0, skeleton.slots.length);
+      return;
+    }
+    let idx = Timeline.search1(this.frames, time);
+    let drawOrderToSetupIndex = this.drawOrders[idx];
+    if (!drawOrderToSetupIndex)
+      Utils2.arrayCopy(skeleton.slots, 0, skeleton.drawOrder, 0, skeleton.slots.length);
+    else {
+      let drawOrder = skeleton.drawOrder;
+      let slots = skeleton.slots;
+      for (let i = 0, n = drawOrderToSetupIndex.length; i < n; i++)
+        drawOrder[i] = slots[drawOrderToSetupIndex[i]];
+    }
+  }
+};
+var PhysicsConstraintResetTimeline = class _PhysicsConstraintResetTimeline extends Timeline {
+  static propertyIds = [Property.physicsConstraintReset.toString()];
+  /** The index of the physics constraint in {@link Skeleton#getPhysicsConstraints()} that will be reset when this timeline is
+  * applied, or -1 if all physics constraints in the skeleton will be reset. */
+  constraintIndex;
+  /** @param physicsConstraintIndex -1 for all physics constraints in the skeleton. */
+  constructor(frameCount, physicsConstraintIndex) {
+    super(frameCount, _PhysicsConstraintResetTimeline.propertyIds);
+    this.constraintIndex = physicsConstraintIndex;
+  }
+  getFrameCount() {
+    return this.frames.length;
+  }
+  /** Sets the time for the specified frame.
+   * @param frame Between 0 and <code>frameCount</code>, inclusive. */
+  setFrame(frame, time) {
+    this.frames[frame] = time;
+  }
+  /** Resets the physics constraint when frames > <code>lastTime</code> and <= <code>time</code>. */
+  apply(skeleton, lastTime, time, firedEvents, alpha, blend, direction) {
+    let constraint;
+    if (this.constraintIndex != -1) {
+      constraint = skeleton.physicsConstraints[this.constraintIndex];
+      if (!constraint.active)
+        return;
+    }
+    const frames = this.frames;
+    if (lastTime > time) {
+      this.apply(skeleton, lastTime, Number.MAX_VALUE, [], alpha, blend, direction);
+      lastTime = -1;
+    } else if (lastTime >= frames[frames.length - 1])
+      return;
+    if (time < frames[0])
+      return;
+    if (lastTime < frames[0] || time >= frames[Timeline.search1(frames, lastTime) + 1]) {
+      if (constraint != null)
+        constraint.reset();
+      else {
+        for (const constraint2 of skeleton.physicsConstraints) {
+          if (constraint2.active)
+            constraint2.reset();
+        }
+      }
+    }
+  }
+};
+
+// node_modules/@esotericsoftware/spine-core/dist/AnimationState.js
+var AnimationState = class _AnimationState {
+  static _emptyAnimation = new Animation("<empty>", [], 0);
+  static emptyAnimation() {
+    return _AnimationState._emptyAnimation;
+  }
+  /** The AnimationStateData to look up mix durations. */
+  data;
+  /** The list of tracks that currently have animations, which may contain null entries. */
+  tracks = new Array();
+  /** Multiplier for the delta time when the animation state is updated, causing time for all animations and mixes to play slower
+   * or faster. Defaults to 1.
+   *
+   * See TrackEntry {@link TrackEntry#timeScale} for affecting a single animation. */
+  timeScale = 1;
+  unkeyedState = 0;
+  events = new Array();
+  listeners = new Array();
+  queue = new EventQueue(this);
+  propertyIDs = new StringSet();
+  animationsChanged = false;
+  trackEntryPool = new Pool(() => new TrackEntry());
+  constructor(data) {
+    this.data = data;
+  }
+  /** Increments each track entry {@link TrackEntry#trackTime()}, setting queued animations as current if needed. */
+  update(delta) {
+    delta *= this.timeScale;
+    let tracks = this.tracks;
+    for (let i = 0, n = tracks.length; i < n; i++) {
+      let current = tracks[i];
+      if (!current)
+        continue;
+      current.animationLast = current.nextAnimationLast;
+      current.trackLast = current.nextTrackLast;
+      let currentDelta = delta * current.timeScale;
+      if (current.delay > 0) {
+        current.delay -= currentDelta;
+        if (current.delay > 0)
+          continue;
+        currentDelta = -current.delay;
+        current.delay = 0;
+      }
+      let next = current.next;
+      if (next) {
+        let nextTime = current.trackLast - next.delay;
+        if (nextTime >= 0) {
+          next.delay = 0;
+          next.trackTime += current.timeScale == 0 ? 0 : (nextTime / current.timeScale + delta) * next.timeScale;
+          current.trackTime += currentDelta;
+          this.setCurrent(i, next, true);
+          while (next.mixingFrom) {
+            next.mixTime += delta;
+            next = next.mixingFrom;
+          }
+          continue;
+        }
+      } else if (current.trackLast >= current.trackEnd && !current.mixingFrom) {
+        tracks[i] = null;
+        this.queue.end(current);
+        this.clearNext(current);
+        continue;
+      }
+      if (current.mixingFrom && this.updateMixingFrom(current, delta)) {
+        let from = current.mixingFrom;
+        current.mixingFrom = null;
+        if (from)
+          from.mixingTo = null;
+        while (from) {
+          this.queue.end(from);
+          from = from.mixingFrom;
+        }
+      }
+      current.trackTime += currentDelta;
+    }
+    this.queue.drain();
+  }
+  /** Returns true when all mixing from entries are complete. */
+  updateMixingFrom(to, delta) {
+    let from = to.mixingFrom;
+    if (!from)
+      return true;
+    let finished = this.updateMixingFrom(from, delta);
+    from.animationLast = from.nextAnimationLast;
+    from.trackLast = from.nextTrackLast;
+    if (to.nextTrackLast != -1 && to.mixTime >= to.mixDuration) {
+      if (from.totalAlpha == 0 || to.mixDuration == 0) {
+        to.mixingFrom = from.mixingFrom;
+        if (from.mixingFrom != null)
+          from.mixingFrom.mixingTo = to;
+        to.interruptAlpha = from.interruptAlpha;
+        this.queue.end(from);
+      }
+      return finished;
+    }
+    from.trackTime += delta * from.timeScale;
+    to.mixTime += delta;
+    return false;
+  }
+  /** Poses the skeleton using the track entry animations. There are no side effects other than invoking listeners, so the
+   * animation state can be applied to multiple skeletons to pose them identically.
+   * @returns True if any animations were applied. */
+  apply(skeleton) {
+    if (!skeleton)
+      throw new Error("skeleton cannot be null.");
+    if (this.animationsChanged)
+      this._animationsChanged();
+    let events = this.events;
+    let tracks = this.tracks;
+    let applied = false;
+    for (let i2 = 0, n2 = tracks.length; i2 < n2; i2++) {
+      let current = tracks[i2];
+      if (!current || current.delay > 0)
+        continue;
+      applied = true;
+      let blend = i2 == 0 ? MixBlend.first : current.mixBlend;
+      let alpha = current.alpha;
+      if (current.mixingFrom)
+        alpha *= this.applyMixingFrom(current, skeleton, blend);
+      else if (current.trackTime >= current.trackEnd && !current.next)
+        alpha = 0;
+      let attachments = alpha >= current.alphaAttachmentThreshold;
+      let animationLast = current.animationLast, animationTime = current.getAnimationTime(), applyTime = animationTime;
+      let applyEvents = events;
+      if (current.reverse) {
+        applyTime = current.animation.duration - applyTime;
+        applyEvents = null;
+      }
+      let timelines = current.animation.timelines;
+      let timelineCount = timelines.length;
+      if (i2 == 0 && alpha == 1 || blend == MixBlend.add) {
+        if (i2 == 0)
+          attachments = true;
+        for (let ii = 0; ii < timelineCount; ii++) {
+          Utils2.webkit602BugfixHelper(alpha, blend);
+          var timeline = timelines[ii];
+          if (timeline instanceof AttachmentTimeline)
+            this.applyAttachmentTimeline(timeline, skeleton, applyTime, blend, attachments);
+          else
+            timeline.apply(skeleton, animationLast, applyTime, applyEvents, alpha, blend, MixDirection.mixIn);
+        }
+      } else {
+        let timelineMode = current.timelineMode;
+        let shortestRotation = current.shortestRotation;
+        let firstFrame = !shortestRotation && current.timelinesRotation.length != timelineCount << 1;
+        if (firstFrame)
+          current.timelinesRotation.length = timelineCount << 1;
+        for (let ii = 0; ii < timelineCount; ii++) {
+          let timeline2 = timelines[ii];
+          let timelineBlend = timelineMode[ii] == SUBSEQUENT ? blend : MixBlend.setup;
+          if (!shortestRotation && timeline2 instanceof RotateTimeline) {
+            this.applyRotateTimeline(timeline2, skeleton, applyTime, alpha, timelineBlend, current.timelinesRotation, ii << 1, firstFrame);
+          } else if (timeline2 instanceof AttachmentTimeline) {
+            this.applyAttachmentTimeline(timeline2, skeleton, applyTime, blend, attachments);
+          } else {
+            Utils2.webkit602BugfixHelper(alpha, blend);
+            timeline2.apply(skeleton, animationLast, applyTime, applyEvents, alpha, timelineBlend, MixDirection.mixIn);
+          }
+        }
+      }
+      this.queueEvents(current, animationTime);
+      events.length = 0;
+      current.nextAnimationLast = animationTime;
+      current.nextTrackLast = current.trackTime;
+    }
+    var setupState = this.unkeyedState + SETUP;
+    var slots = skeleton.slots;
+    for (var i = 0, n = skeleton.slots.length; i < n; i++) {
+      var slot = slots[i];
+      if (slot.attachmentState == setupState) {
+        var attachmentName = slot.data.attachmentName;
+        slot.setAttachment(!attachmentName ? null : skeleton.getAttachment(slot.data.index, attachmentName));
+      }
+    }
+    this.unkeyedState += 2;
+    this.queue.drain();
+    return applied;
+  }
+  applyMixingFrom(to, skeleton, blend) {
+    let from = to.mixingFrom;
+    if (from.mixingFrom)
+      this.applyMixingFrom(from, skeleton, blend);
+    let mix = 0;
+    if (to.mixDuration == 0) {
+      mix = 1;
+      if (blend == MixBlend.first)
+        blend = MixBlend.setup;
+    } else {
+      mix = to.mixTime / to.mixDuration;
+      if (mix > 1)
+        mix = 1;
+      if (blend != MixBlend.first)
+        blend = from.mixBlend;
+    }
+    let attachments = mix < from.mixAttachmentThreshold, drawOrder = mix < from.mixDrawOrderThreshold;
+    let timelines = from.animation.timelines;
+    let timelineCount = timelines.length;
+    let alphaHold = from.alpha * to.interruptAlpha, alphaMix = alphaHold * (1 - mix);
+    let animationLast = from.animationLast, animationTime = from.getAnimationTime(), applyTime = animationTime;
+    let events = null;
+    if (from.reverse)
+      applyTime = from.animation.duration - applyTime;
+    else if (mix < from.eventThreshold)
+      events = this.events;
+    if (blend == MixBlend.add) {
+      for (let i = 0; i < timelineCount; i++)
+        timelines[i].apply(skeleton, animationLast, applyTime, events, alphaMix, blend, MixDirection.mixOut);
+    } else {
+      let timelineMode = from.timelineMode;
+      let timelineHoldMix = from.timelineHoldMix;
+      let shortestRotation = from.shortestRotation;
+      let firstFrame = !shortestRotation && from.timelinesRotation.length != timelineCount << 1;
+      if (firstFrame)
+        from.timelinesRotation.length = timelineCount << 1;
+      from.totalAlpha = 0;
+      for (let i = 0; i < timelineCount; i++) {
+        let timeline = timelines[i];
+        let direction = MixDirection.mixOut;
+        let timelineBlend;
+        let alpha = 0;
+        switch (timelineMode[i]) {
+          case SUBSEQUENT:
+            if (!drawOrder && timeline instanceof DrawOrderTimeline)
+              continue;
+            timelineBlend = blend;
+            alpha = alphaMix;
+            break;
+          case FIRST:
+            timelineBlend = MixBlend.setup;
+            alpha = alphaMix;
+            break;
+          case HOLD_SUBSEQUENT:
+            timelineBlend = blend;
+            alpha = alphaHold;
+            break;
+          case HOLD_FIRST:
+            timelineBlend = MixBlend.setup;
+            alpha = alphaHold;
+            break;
+          default:
+            timelineBlend = MixBlend.setup;
+            let holdMix = timelineHoldMix[i];
+            alpha = alphaHold * Math.max(0, 1 - holdMix.mixTime / holdMix.mixDuration);
+            break;
+        }
+        from.totalAlpha += alpha;
+        if (!shortestRotation && timeline instanceof RotateTimeline)
+          this.applyRotateTimeline(timeline, skeleton, applyTime, alpha, timelineBlend, from.timelinesRotation, i << 1, firstFrame);
+        else if (timeline instanceof AttachmentTimeline)
+          this.applyAttachmentTimeline(timeline, skeleton, applyTime, timelineBlend, attachments && alpha >= from.alphaAttachmentThreshold);
+        else {
+          Utils2.webkit602BugfixHelper(alpha, blend);
+          if (drawOrder && timeline instanceof DrawOrderTimeline && timelineBlend == MixBlend.setup)
+            direction = MixDirection.mixIn;
+          timeline.apply(skeleton, animationLast, applyTime, events, alpha, timelineBlend, direction);
+        }
+      }
+    }
+    if (to.mixDuration > 0)
+      this.queueEvents(from, animationTime);
+    this.events.length = 0;
+    from.nextAnimationLast = animationTime;
+    from.nextTrackLast = from.trackTime;
+    return mix;
+  }
+  applyAttachmentTimeline(timeline, skeleton, time, blend, attachments) {
+    var slot = skeleton.slots[timeline.slotIndex];
+    if (!slot.bone.active)
+      return;
+    if (time < timeline.frames[0]) {
+      if (blend == MixBlend.setup || blend == MixBlend.first)
+        this.setAttachment(skeleton, slot, slot.data.attachmentName, attachments);
+    } else
+      this.setAttachment(skeleton, slot, timeline.attachmentNames[Timeline.search1(timeline.frames, time)], attachments);
+    if (slot.attachmentState <= this.unkeyedState)
+      slot.attachmentState = this.unkeyedState + SETUP;
+  }
+  setAttachment(skeleton, slot, attachmentName, attachments) {
+    slot.setAttachment(!attachmentName ? null : skeleton.getAttachment(slot.data.index, attachmentName));
+    if (attachments)
+      slot.attachmentState = this.unkeyedState + CURRENT;
+  }
+  applyRotateTimeline(timeline, skeleton, time, alpha, blend, timelinesRotation, i, firstFrame) {
+    if (firstFrame)
+      timelinesRotation[i] = 0;
+    if (alpha == 1) {
+      timeline.apply(skeleton, 0, time, null, 1, blend, MixDirection.mixIn);
+      return;
+    }
+    let bone = skeleton.bones[timeline.boneIndex];
+    if (!bone.active)
+      return;
+    let frames = timeline.frames;
+    let r1 = 0, r2 = 0;
+    if (time < frames[0]) {
+      switch (blend) {
+        case MixBlend.setup:
+          bone.rotation = bone.data.rotation;
+        default:
+          return;
+        case MixBlend.first:
+          r1 = bone.rotation;
+          r2 = bone.data.rotation;
+      }
+    } else {
+      r1 = blend == MixBlend.setup ? bone.data.rotation : bone.rotation;
+      r2 = bone.data.rotation + timeline.getCurveValue(time);
+    }
+    let total = 0, diff = r2 - r1;
+    diff -= Math.ceil(diff / 360 - 0.5) * 360;
+    if (diff == 0) {
+      total = timelinesRotation[i];
+    } else {
+      let lastTotal = 0, lastDiff = 0;
+      if (firstFrame) {
+        lastTotal = 0;
+        lastDiff = diff;
+      } else {
+        lastTotal = timelinesRotation[i];
+        lastDiff = timelinesRotation[i + 1];
+      }
+      let loops = lastTotal - lastTotal % 360;
+      total = diff + loops;
+      let current = diff >= 0, dir = lastTotal >= 0;
+      if (Math.abs(lastDiff) <= 90 && MathUtils.signum(lastDiff) != MathUtils.signum(diff)) {
+        if (Math.abs(lastTotal - loops) > 180) {
+          total += 360 * MathUtils.signum(lastTotal);
+          dir = current;
+        } else if (loops != 0)
+          total -= 360 * MathUtils.signum(lastTotal);
+        else
+          dir = current;
+      }
+      if (dir != current)
+        total += 360 * MathUtils.signum(lastTotal);
+      timelinesRotation[i] = total;
+    }
+    timelinesRotation[i + 1] = diff;
+    bone.rotation = r1 + total * alpha;
+  }
+  queueEvents(entry, animationTime) {
+    let animationStart = entry.animationStart, animationEnd = entry.animationEnd;
+    let duration = animationEnd - animationStart;
+    let trackLastWrapped = entry.trackLast % duration;
+    let events = this.events;
+    let i = 0, n = events.length;
+    for (; i < n; i++) {
+      let event = events[i];
+      if (event.time < trackLastWrapped)
+        break;
+      if (event.time > animationEnd)
+        continue;
+      this.queue.event(entry, event);
+    }
+    let complete = false;
+    if (entry.loop) {
+      if (duration == 0)
+        complete = true;
+      else {
+        const cycles = Math.floor(entry.trackTime / duration);
+        complete = cycles > 0 && cycles > Math.floor(entry.trackLast / duration);
+      }
+    } else
+      complete = animationTime >= animationEnd && entry.animationLast < animationEnd;
+    if (complete)
+      this.queue.complete(entry);
+    for (; i < n; i++) {
+      let event = events[i];
+      if (event.time < animationStart)
+        continue;
+      this.queue.event(entry, event);
+    }
+  }
+  /** Removes all animations from all tracks, leaving skeletons in their current pose.
+   *
+   * It may be desired to use {@link AnimationState#setEmptyAnimation()} to mix the skeletons back to the setup pose,
+   * rather than leaving them in their current pose. */
+  clearTracks() {
+    let oldDrainDisabled = this.queue.drainDisabled;
+    this.queue.drainDisabled = true;
+    for (let i = 0, n = this.tracks.length; i < n; i++)
+      this.clearTrack(i);
+    this.tracks.length = 0;
+    this.queue.drainDisabled = oldDrainDisabled;
+    this.queue.drain();
+  }
+  /** Removes all animations from the track, leaving skeletons in their current pose.
+   *
+   * It may be desired to use {@link AnimationState#setEmptyAnimation()} to mix the skeletons back to the setup pose,
+   * rather than leaving them in their current pose. */
+  clearTrack(trackIndex) {
+    if (trackIndex >= this.tracks.length)
+      return;
+    let current = this.tracks[trackIndex];
+    if (!current)
+      return;
+    this.queue.end(current);
+    this.clearNext(current);
+    let entry = current;
+    while (true) {
+      let from = entry.mixingFrom;
+      if (!from)
+        break;
+      this.queue.end(from);
+      entry.mixingFrom = null;
+      entry.mixingTo = null;
+      entry = from;
+    }
+    this.tracks[current.trackIndex] = null;
+    this.queue.drain();
+  }
+  setCurrent(index, current, interrupt) {
+    let from = this.expandToIndex(index);
+    this.tracks[index] = current;
+    current.previous = null;
+    if (from) {
+      if (interrupt)
+        this.queue.interrupt(from);
+      current.mixingFrom = from;
+      from.mixingTo = current;
+      current.mixTime = 0;
+      if (from.mixingFrom && from.mixDuration > 0)
+        current.interruptAlpha *= Math.min(1, from.mixTime / from.mixDuration);
+      from.timelinesRotation.length = 0;
+    }
+    this.queue.start(current);
+  }
+  /** Sets an animation by name.
+    *
+    * See {@link #setAnimationWith()}. */
+  setAnimation(trackIndex, animationName, loop = false) {
+    let animation = this.data.skeletonData.findAnimation(animationName);
+    if (!animation)
+      throw new Error("Animation not found: " + animationName);
+    return this.setAnimationWith(trackIndex, animation, loop);
+  }
+  /** Sets the current animation for a track, discarding any queued animations. If the formerly current track entry was never
+   * applied to a skeleton, it is replaced (not mixed from).
+   * @param loop If true, the animation will repeat. If false it will not, instead its last frame is applied if played beyond its
+   *           duration. In either case {@link TrackEntry#trackEnd} determines when the track is cleared.
+   * @returns A track entry to allow further customization of animation playback. References to the track entry must not be kept
+   *         after the {@link AnimationStateListener#dispose()} event occurs. */
+  setAnimationWith(trackIndex, animation, loop = false) {
+    if (!animation)
+      throw new Error("animation cannot be null.");
+    let interrupt = true;
+    let current = this.expandToIndex(trackIndex);
+    if (current) {
+      if (current.nextTrackLast == -1) {
+        this.tracks[trackIndex] = current.mixingFrom;
+        this.queue.interrupt(current);
+        this.queue.end(current);
+        this.clearNext(current);
+        current = current.mixingFrom;
+        interrupt = false;
+      } else
+        this.clearNext(current);
+    }
+    let entry = this.trackEntry(trackIndex, animation, loop, current);
+    this.setCurrent(trackIndex, entry, interrupt);
+    this.queue.drain();
+    return entry;
+  }
+  /** Queues an animation by name.
+   *
+   * See {@link #addAnimationWith()}. */
+  addAnimation(trackIndex, animationName, loop = false, delay = 0) {
+    let animation = this.data.skeletonData.findAnimation(animationName);
+    if (!animation)
+      throw new Error("Animation not found: " + animationName);
+    return this.addAnimationWith(trackIndex, animation, loop, delay);
+  }
+  /** Adds an animation to be played after the current or last queued animation for a track. If the track is empty, it is
+   * equivalent to calling {@link #setAnimationWith()}.
+   * @param delay If > 0, sets {@link TrackEntry#delay}. If <= 0, the delay set is the duration of the previous track entry
+   *           minus any mix duration (from the {@link AnimationStateData}) plus the specified `delay` (ie the mix
+   *           ends at (`delay` = 0) or before (`delay` < 0) the previous track entry duration). If the
+   *           previous entry is looping, its next loop completion is used instead of its duration.
+   * @returns A track entry to allow further customization of animation playback. References to the track entry must not be kept
+   *         after the {@link AnimationStateListener#dispose()} event occurs. */
+  addAnimationWith(trackIndex, animation, loop = false, delay = 0) {
+    if (!animation)
+      throw new Error("animation cannot be null.");
+    let last = this.expandToIndex(trackIndex);
+    if (last) {
+      while (last.next)
+        last = last.next;
+    }
+    let entry = this.trackEntry(trackIndex, animation, loop, last);
+    if (!last) {
+      this.setCurrent(trackIndex, entry, true);
+      this.queue.drain();
+      if (delay < 0)
+        delay = 0;
+    } else {
+      last.next = entry;
+      entry.previous = last;
+      if (delay <= 0)
+        delay = Math.max(delay + last.getTrackComplete() - entry.mixDuration, 0);
+    }
+    entry.delay = delay;
+    return entry;
+  }
+  /** Sets an empty animation for a track, discarding any queued animations, and sets the track entry's
+   * {@link TrackEntry#mixduration}. An empty animation has no timelines and serves as a placeholder for mixing in or out.
+   *
+   * Mixing out is done by setting an empty animation with a mix duration using either {@link #setEmptyAnimation()},
+   * {@link #setEmptyAnimations()}, or {@link #addEmptyAnimation()}. Mixing to an empty animation causes
+   * the previous animation to be applied less and less over the mix duration. Properties keyed in the previous animation
+   * transition to the value from lower tracks or to the setup pose value if no lower tracks key the property. A mix duration of
+   * 0 still mixes out over one frame.
+   *
+   * Mixing in is done by first setting an empty animation, then adding an animation using
+   * {@link #addAnimation()} and on the returned track entry, set the
+   * {@link TrackEntry#setMixDuration()}. Mixing from an empty animation causes the new animation to be applied more and
+   * more over the mix duration. Properties keyed in the new animation transition from the value from lower tracks or from the
+   * setup pose value if no lower tracks key the property to the value keyed in the new animation. */
+  setEmptyAnimation(trackIndex, mixDuration = 0) {
+    let entry = this.setAnimationWith(trackIndex, _AnimationState.emptyAnimation(), false);
+    entry.mixDuration = mixDuration;
+    entry.trackEnd = mixDuration;
+    return entry;
+  }
+  /** Adds an empty animation to be played after the current or last queued animation for a track, and sets the track entry's
+   * {@link TrackEntry#mixDuration}. If the track is empty, it is equivalent to calling
+   * {@link #setEmptyAnimation()}.
+   *
+   * See {@link #setEmptyAnimation()}.
+   * @param delay If > 0, sets {@link TrackEntry#delay}. If <= 0, the delay set is the duration of the previous track entry
+   *           minus any mix duration plus the specified `delay` (ie the mix ends at (`delay` = 0) or
+   *           before (`delay` < 0) the previous track entry duration). If the previous entry is looping, its next
+   *           loop completion is used instead of its duration.
+   * @return A track entry to allow further customization of animation playback. References to the track entry must not be kept
+   *         after the {@link AnimationStateListener#dispose()} event occurs. */
+  addEmptyAnimation(trackIndex, mixDuration = 0, delay = 0) {
+    let entry = this.addAnimationWith(trackIndex, _AnimationState.emptyAnimation(), false, delay);
+    if (delay <= 0)
+      entry.delay = Math.max(entry.delay + entry.mixDuration - mixDuration, 0);
+    entry.mixDuration = mixDuration;
+    entry.trackEnd = mixDuration;
+    return entry;
+  }
+  /** Sets an empty animation for every track, discarding any queued animations, and mixes to it over the specified mix
+    * duration. */
+  setEmptyAnimations(mixDuration = 0) {
+    let oldDrainDisabled = this.queue.drainDisabled;
+    this.queue.drainDisabled = true;
+    for (let i = 0, n = this.tracks.length; i < n; i++) {
+      let current = this.tracks[i];
+      if (current)
+        this.setEmptyAnimation(current.trackIndex, mixDuration);
+    }
+    this.queue.drainDisabled = oldDrainDisabled;
+    this.queue.drain();
+  }
+  expandToIndex(index) {
+    if (index < this.tracks.length)
+      return this.tracks[index];
+    Utils2.ensureArrayCapacity(this.tracks, index + 1, null);
+    this.tracks.length = index + 1;
+    return null;
+  }
+  /** @param last May be null. */
+  trackEntry(trackIndex, animation, loop, last) {
+    let entry = this.trackEntryPool.obtain();
+    entry.reset();
+    entry.trackIndex = trackIndex;
+    entry.animation = animation;
+    entry.loop = loop;
+    entry.holdPrevious = false;
+    entry.reverse = false;
+    entry.shortestRotation = false;
+    entry.eventThreshold = 0;
+    entry.alphaAttachmentThreshold = 0;
+    entry.mixAttachmentThreshold = 0;
+    entry.mixDrawOrderThreshold = 0;
+    entry.animationStart = 0;
+    entry.animationEnd = animation.duration;
+    entry.animationLast = -1;
+    entry.nextAnimationLast = -1;
+    entry.delay = 0;
+    entry.trackTime = 0;
+    entry.trackLast = -1;
+    entry.nextTrackLast = -1;
+    entry.trackEnd = Number.MAX_VALUE;
+    entry.timeScale = 1;
+    entry.alpha = 1;
+    entry.mixTime = 0;
+    entry.mixDuration = !last ? 0 : this.data.getMix(last.animation, animation);
+    entry.interruptAlpha = 1;
+    entry.totalAlpha = 0;
+    entry.mixBlend = MixBlend.replace;
+    return entry;
+  }
+  /** Removes the {@link TrackEntry#getNext() next entry} and all entries after it for the specified entry. */
+  clearNext(entry) {
+    let next = entry.next;
+    while (next) {
+      this.queue.dispose(next);
+      next = next.next;
+    }
+    entry.next = null;
+  }
+  _animationsChanged() {
+    this.animationsChanged = false;
+    this.propertyIDs.clear();
+    let tracks = this.tracks;
+    for (let i = 0, n = tracks.length; i < n; i++) {
+      let entry = tracks[i];
+      if (!entry)
+        continue;
+      while (entry.mixingFrom)
+        entry = entry.mixingFrom;
+      do {
+        if (!entry.mixingTo || entry.mixBlend != MixBlend.add)
+          this.computeHold(entry);
+        entry = entry.mixingTo;
+      } while (entry);
+    }
+  }
+  computeHold(entry) {
+    let to = entry.mixingTo;
+    let timelines = entry.animation.timelines;
+    let timelinesCount = entry.animation.timelines.length;
+    let timelineMode = entry.timelineMode;
+    timelineMode.length = timelinesCount;
+    let timelineHoldMix = entry.timelineHoldMix;
+    timelineHoldMix.length = 0;
+    let propertyIDs = this.propertyIDs;
+    if (to && to.holdPrevious) {
+      for (let i = 0; i < timelinesCount; i++)
+        timelineMode[i] = propertyIDs.addAll(timelines[i].getPropertyIds()) ? HOLD_FIRST : HOLD_SUBSEQUENT;
+      return;
+    }
+    outer: for (let i = 0; i < timelinesCount; i++) {
+      let timeline = timelines[i];
+      let ids = timeline.getPropertyIds();
+      if (!propertyIDs.addAll(ids))
+        timelineMode[i] = SUBSEQUENT;
+      else if (!to || timeline instanceof AttachmentTimeline || timeline instanceof DrawOrderTimeline || timeline instanceof EventTimeline || !to.animation.hasTimeline(ids)) {
+        timelineMode[i] = FIRST;
+      } else {
+        for (let next = to.mixingTo; next; next = next.mixingTo) {
+          if (next.animation.hasTimeline(ids))
+            continue;
+          if (entry.mixDuration > 0) {
+            timelineMode[i] = HOLD_MIX;
+            timelineHoldMix[i] = next;
+            continue outer;
+          }
+          break;
+        }
+        timelineMode[i] = HOLD_FIRST;
+      }
+    }
+  }
+  /** Returns the track entry for the animation currently playing on the track, or null if no animation is currently playing. */
+  getCurrent(trackIndex) {
+    if (trackIndex >= this.tracks.length)
+      return null;
+    return this.tracks[trackIndex];
+  }
+  /** Adds a listener to receive events for all track entries. */
+  addListener(listener) {
+    if (!listener)
+      throw new Error("listener cannot be null.");
+    this.listeners.push(listener);
+  }
+  /** Removes the listener added with {@link #addListener()}. */
+  removeListener(listener) {
+    let index = this.listeners.indexOf(listener);
+    if (index >= 0)
+      this.listeners.splice(index, 1);
+  }
+  /** Removes all listeners added with {@link #addListener()}. */
+  clearListeners() {
+    this.listeners.length = 0;
+  }
+  /** Discards all listener notifications that have not yet been delivered. This can be useful to call from an
+   * {@link AnimationStateListener} when it is known that further notifications that may have been already queued for delivery
+   * are not wanted because new animations are being set. */
+  clearListenerNotifications() {
+    this.queue.clear();
+  }
+};
+var TrackEntry = class {
+  /** The animation to apply for this track entry. */
+  animation = null;
+  previous = null;
+  /** The animation queued to start after this animation, or null. `next` makes up a linked list. */
+  next = null;
+  /** The track entry for the previous animation when mixing from the previous animation to this animation, or null if no
+   * mixing is currently occuring. When mixing from multiple animations, `mixingFrom` makes up a linked list. */
+  mixingFrom = null;
+  /** The track entry for the next animation when mixing from this animation to the next animation, or null if no mixing is
+   * currently occuring. When mixing to multiple animations, `mixingTo` makes up a linked list. */
+  mixingTo = null;
+  /** The listener for events generated by this track entry, or null.
+   *
+   * A track entry returned from {@link AnimationState#setAnimation()} is already the current animation
+   * for the track, so the track entry listener {@link AnimationStateListener#start()} will not be called. */
+  listener = null;
+  /** The index of the track where this track entry is either current or queued.
+   *
+   * See {@link AnimationState#getCurrent()}. */
+  trackIndex = 0;
+  /** If true, the animation will repeat. If false it will not, instead its last frame is applied if played beyond its
+   * duration. */
+  loop = false;
+  /** If true, when mixing from the previous animation to this animation, the previous animation is applied as normal instead
+   * of being mixed out.
+   *
+   * When mixing between animations that key the same property, if a lower track also keys that property then the value will
+   * briefly dip toward the lower track value during the mix. This happens because the first animation mixes from 100% to 0%
+   * while the second animation mixes from 0% to 100%. Setting `holdPrevious` to true applies the first animation
+   * at 100% during the mix so the lower track value is overwritten. Such dipping does not occur on the lowest track which
+   * keys the property, only when a higher track also keys the property.
+   *
+   * Snapping will occur if `holdPrevious` is true and this animation does not key all the same properties as the
+   * previous animation. */
+  holdPrevious = false;
+  reverse = false;
+  shortestRotation = false;
+  /** When the mix percentage ({@link #mixTime} / {@link #mixDuration}) is less than the
+   * `eventThreshold`, event timelines are applied while this animation is being mixed out. Defaults to 0, so event
+   * timelines are not applied while this animation is being mixed out. */
+  eventThreshold = 0;
+  /** When the mix percentage ({@link #mixtime} / {@link #mixDuration}) is less than the
+   * `attachmentThreshold`, attachment timelines are applied while this animation is being mixed out. Defaults to
+   * 0, so attachment timelines are not applied while this animation is being mixed out. */
+  mixAttachmentThreshold = 0;
+  /** When {@link #getAlpha()} is greater than <code>alphaAttachmentThreshold</code>, attachment timelines are applied.
+   * Defaults to 0, so attachment timelines are always applied. */
+  alphaAttachmentThreshold = 0;
+  /** When the mix percentage ({@link #getMixTime()} / {@link #getMixDuration()}) is less than the
+   * <code>mixDrawOrderThreshold</code>, draw order timelines are applied while this animation is being mixed out. Defaults to
+   * 0, so draw order timelines are not applied while this animation is being mixed out. */
+  mixDrawOrderThreshold = 0;
+  /** Seconds when this animation starts, both initially and after looping. Defaults to 0.
+   *
+   * When changing the `animationStart` time, it often makes sense to set {@link #animationLast} to the same
+   * value to prevent timeline keys before the start time from triggering. */
+  animationStart = 0;
+  /** Seconds for the last frame of this animation. Non-looping animations won't play past this time. Looping animations will
+   * loop back to {@link #animationStart} at this time. Defaults to the animation {@link Animation#duration}. */
+  animationEnd = 0;
+  /** The time in seconds this animation was last applied. Some timelines use this for one-time triggers. Eg, when this
+   * animation is applied, event timelines will fire all events between the `animationLast` time (exclusive) and
+   * `animationTime` (inclusive). Defaults to -1 to ensure triggers on frame 0 happen the first time this animation
+   * is applied. */
+  animationLast = 0;
+  nextAnimationLast = 0;
+  /** Seconds to postpone playing the animation. When this track entry is the current track entry, `delay`
+   * postpones incrementing the {@link #trackTime}. When this track entry is queued, `delay` is the time from
+   * the start of the previous animation to when this track entry will become the current track entry (ie when the previous
+   * track entry {@link TrackEntry#trackTime} >= this track entry's `delay`).
+   *
+   * {@link #timeScale} affects the delay. */
+  delay = 0;
+  /** Current time in seconds this track entry has been the current track entry. The track time determines
+   * {@link #animationTime}. The track time can be set to start the animation at a time other than 0, without affecting
+   * looping. */
+  trackTime = 0;
+  trackLast = 0;
+  nextTrackLast = 0;
+  /** The track time in seconds when this animation will be removed from the track. Defaults to the highest possible float
+   * value, meaning the animation will be applied until a new animation is set or the track is cleared. If the track end time
+   * is reached, no other animations are queued for playback, and mixing from any previous animations is complete, then the
+   * properties keyed by the animation are set to the setup pose and the track is cleared.
+   *
+   * It may be desired to use {@link AnimationState#addEmptyAnimation()} rather than have the animation
+   * abruptly cease being applied. */
+  trackEnd = 0;
+  /** Multiplier for the delta time when this track entry is updated, causing time for this animation to pass slower or
+   * faster. Defaults to 1.
+   *
+   * {@link #mixTime} is not affected by track entry time scale, so {@link #mixDuration} may need to be adjusted to
+   * match the animation speed.
+   *
+   * When using {@link AnimationState#addAnimation()} with a `delay` <= 0, note the
+   * {@link #delay} is set using the mix duration from the {@link AnimationStateData}, assuming time scale to be 1. If
+   * the time scale is not 1, the delay may need to be adjusted.
+   *
+   * See AnimationState {@link AnimationState#timeScale} for affecting all animations. */
+  timeScale = 0;
+  /** Values < 1 mix this animation with the skeleton's current pose (usually the pose resulting from lower tracks). Defaults
+   * to 1, which overwrites the skeleton's current pose with this animation.
+   *
+   * Typically track 0 is used to completely pose the skeleton, then alpha is used on higher tracks. It doesn't make sense to
+   * use alpha on track 0 if the skeleton pose is from the last frame render. */
+  alpha = 0;
+  /** Seconds from 0 to the {@link #getMixDuration()} when mixing from the previous animation to this animation. May be
+   * slightly more than `mixDuration` when the mix is complete. */
+  mixTime = 0;
+  /** Seconds for mixing from the previous animation to this animation. Defaults to the value provided by AnimationStateData
+   * {@link AnimationStateData#getMix()} based on the animation before this animation (if any).
+   *
+   * A mix duration of 0 still mixes out over one frame to provide the track entry being mixed out a chance to revert the
+   * properties it was animating.
+   *
+   * The `mixDuration` can be set manually rather than use the value from
+   * {@link AnimationStateData#getMix()}. In that case, the `mixDuration` can be set for a new
+   * track entry only before {@link AnimationState#update(float)} is first called.
+   *
+   * When using {@link AnimationState#addAnimation()} with a `delay` <= 0, note the
+   * {@link #delay} is set using the mix duration from the {@link AnimationStateData}, not a mix duration set
+   * afterward. */
+  _mixDuration = 0;
+  interruptAlpha = 0;
+  totalAlpha = 0;
+  get mixDuration() {
+    return this._mixDuration;
+  }
+  set mixDuration(mixDuration) {
+    this._mixDuration = mixDuration;
+  }
+  setMixDurationWithDelay(mixDuration, delay) {
+    this._mixDuration = mixDuration;
+    if (delay <= 0) {
+      if (this.previous != null)
+        delay = Math.max(delay + this.previous.getTrackComplete() - mixDuration, 0);
+      else
+        delay = 0;
+    }
+    this.delay = delay;
+  }
+  /** Controls how properties keyed in the animation are mixed with lower tracks. Defaults to {@link MixBlend#replace}, which
+   * replaces the values from the lower tracks with the animation values. {@link MixBlend#add} adds the animation values to
+   * the values from the lower tracks.
+   *
+   * The `mixBlend` can be set for a new track entry only before {@link AnimationState#apply()} is first
+   * called. */
+  mixBlend = MixBlend.replace;
+  timelineMode = new Array();
+  timelineHoldMix = new Array();
+  timelinesRotation = new Array();
+  reset() {
+    this.next = null;
+    this.previous = null;
+    this.mixingFrom = null;
+    this.mixingTo = null;
+    this.animation = null;
+    this.listener = null;
+    this.timelineMode.length = 0;
+    this.timelineHoldMix.length = 0;
+    this.timelinesRotation.length = 0;
+  }
+  /** Uses {@link #trackTime} to compute the `animationTime`, which is between {@link #animationStart}
+   * and {@link #animationEnd}. When the `trackTime` is 0, the `animationTime` is equal to the
+   * `animationStart` time. */
+  getAnimationTime() {
+    if (this.loop) {
+      let duration = this.animationEnd - this.animationStart;
+      if (duration == 0)
+        return this.animationStart;
+      return this.trackTime % duration + this.animationStart;
+    }
+    return Math.min(this.trackTime + this.animationStart, this.animationEnd);
+  }
+  setAnimationLast(animationLast) {
+    this.animationLast = animationLast;
+    this.nextAnimationLast = animationLast;
+  }
+  /** Returns true if at least one loop has been completed.
+   *
+   * See {@link AnimationStateListener#complete()}. */
+  isComplete() {
+    return this.trackTime >= this.animationEnd - this.animationStart;
+  }
+  /** Resets the rotation directions for mixing this entry's rotate timelines. This can be useful to avoid bones rotating the
+   * long way around when using {@link #alpha} and starting animations on other tracks.
+   *
+   * Mixing with {@link MixBlend#replace} involves finding a rotation between two others, which has two possible solutions:
+   * the short way or the long way around. The two rotations likely change over time, so which direction is the short or long
+   * way also changes. If the short way was always chosen, bones would flip to the other side when that direction became the
+   * long way. TrackEntry chooses the short way the first time it is applied and remembers that direction. */
+  resetRotationDirections() {
+    this.timelinesRotation.length = 0;
+  }
+  getTrackComplete() {
+    let duration = this.animationEnd - this.animationStart;
+    if (duration != 0) {
+      if (this.loop)
+        return duration * (1 + (this.trackTime / duration | 0));
+      if (this.trackTime < duration)
+        return duration;
+    }
+    return this.trackTime;
+  }
+  /** Returns true if this track entry has been applied at least once.
+   * <p>
+   * See {@link AnimationState#apply(Skeleton)}. */
+  wasApplied() {
+    return this.nextTrackLast != -1;
+  }
+  /** Returns true if there is a {@link #getNext()} track entry and it will become the current track entry during the next
+   * {@link AnimationState#update(float)}. */
+  isNextReady() {
+    return this.next != null && this.nextTrackLast - this.next.delay >= 0;
+  }
+};
+var EventQueue = class {
+  objects = [];
+  drainDisabled = false;
+  animState;
+  constructor(animState) {
+    this.animState = animState;
+  }
+  start(entry) {
+    this.objects.push(EventType.start);
+    this.objects.push(entry);
+    this.animState.animationsChanged = true;
+  }
+  interrupt(entry) {
+    this.objects.push(EventType.interrupt);
+    this.objects.push(entry);
+  }
+  end(entry) {
+    this.objects.push(EventType.end);
+    this.objects.push(entry);
+    this.animState.animationsChanged = true;
+  }
+  dispose(entry) {
+    this.objects.push(EventType.dispose);
+    this.objects.push(entry);
+  }
+  complete(entry) {
+    this.objects.push(EventType.complete);
+    this.objects.push(entry);
+  }
+  event(entry, event) {
+    this.objects.push(EventType.event);
+    this.objects.push(entry);
+    this.objects.push(event);
+  }
+  drain() {
+    if (this.drainDisabled)
+      return;
+    this.drainDisabled = true;
+    let objects = this.objects;
+    for (let i = 0; i < objects.length; i += 2) {
+      let type = objects[i];
+      let entry = objects[i + 1];
+      let listeners = this.animState.listeners.slice();
+      switch (type) {
+        case EventType.start:
+          if (entry.listener && entry.listener.start)
+            entry.listener.start(entry);
+          for (let ii = 0; ii < listeners.length; ii++) {
+            let listener = listeners[ii];
+            if (listener.start)
+              listener.start(entry);
+          }
+          break;
+        case EventType.interrupt:
+          if (entry.listener && entry.listener.interrupt)
+            entry.listener.interrupt(entry);
+          for (let ii = 0; ii < listeners.length; ii++) {
+            let listener = listeners[ii];
+            if (listener.interrupt)
+              listener.interrupt(entry);
+          }
+          break;
+        case EventType.end:
+          if (entry.listener && entry.listener.end)
+            entry.listener.end(entry);
+          for (let ii = 0; ii < listeners.length; ii++) {
+            let listener = listeners[ii];
+            if (listener.end)
+              listener.end(entry);
+          }
+        // Fall through.
+        case EventType.dispose:
+          if (entry.listener && entry.listener.dispose)
+            entry.listener.dispose(entry);
+          for (let ii = 0; ii < listeners.length; ii++) {
+            let listener = listeners[ii];
+            if (listener.dispose)
+              listener.dispose(entry);
+          }
+          this.animState.trackEntryPool.free(entry);
+          break;
+        case EventType.complete:
+          if (entry.listener && entry.listener.complete)
+            entry.listener.complete(entry);
+          for (let ii = 0; ii < listeners.length; ii++) {
+            let listener = listeners[ii];
+            if (listener.complete)
+              listener.complete(entry);
+          }
+          break;
+        case EventType.event:
+          let event = objects[i++ + 2];
+          if (entry.listener && entry.listener.event)
+            entry.listener.event(entry, event);
+          for (let ii = 0; ii < listeners.length; ii++) {
+            let listener = listeners[ii];
+            if (listener.event)
+              listener.event(entry, event);
+          }
+          break;
+      }
+    }
+    this.clear();
+    this.drainDisabled = false;
+  }
+  clear() {
+    this.objects.length = 0;
+  }
+};
+var EventType;
+(function(EventType2) {
+  EventType2[EventType2["start"] = 0] = "start";
+  EventType2[EventType2["interrupt"] = 1] = "interrupt";
+  EventType2[EventType2["end"] = 2] = "end";
+  EventType2[EventType2["dispose"] = 3] = "dispose";
+  EventType2[EventType2["complete"] = 4] = "complete";
+  EventType2[EventType2["event"] = 5] = "event";
+})(EventType || (EventType = {}));
+var SUBSEQUENT = 0;
+var FIRST = 1;
+var HOLD_SUBSEQUENT = 2;
+var HOLD_FIRST = 3;
+var HOLD_MIX = 4;
+var SETUP = 1;
+var CURRENT = 2;
+
+// node_modules/@esotericsoftware/spine-core/dist/Texture.js
+var TextureFilter;
+(function(TextureFilter2) {
+  TextureFilter2[TextureFilter2["Nearest"] = 9728] = "Nearest";
+  TextureFilter2[TextureFilter2["Linear"] = 9729] = "Linear";
+  TextureFilter2[TextureFilter2["MipMap"] = 9987] = "MipMap";
+  TextureFilter2[TextureFilter2["MipMapNearestNearest"] = 9984] = "MipMapNearestNearest";
+  TextureFilter2[TextureFilter2["MipMapLinearNearest"] = 9985] = "MipMapLinearNearest";
+  TextureFilter2[TextureFilter2["MipMapNearestLinear"] = 9986] = "MipMapNearestLinear";
+  TextureFilter2[TextureFilter2["MipMapLinearLinear"] = 9987] = "MipMapLinearLinear";
+})(TextureFilter || (TextureFilter = {}));
+var TextureWrap;
+(function(TextureWrap2) {
+  TextureWrap2[TextureWrap2["MirroredRepeat"] = 33648] = "MirroredRepeat";
+  TextureWrap2[TextureWrap2["ClampToEdge"] = 33071] = "ClampToEdge";
+  TextureWrap2[TextureWrap2["Repeat"] = 10497] = "Repeat";
+})(TextureWrap || (TextureWrap = {}));
+
+// node_modules/@esotericsoftware/spine-core/dist/BoneData.js
+var Inherit;
+(function(Inherit2) {
+  Inherit2[Inherit2["Normal"] = 0] = "Normal";
+  Inherit2[Inherit2["OnlyTranslation"] = 1] = "OnlyTranslation";
+  Inherit2[Inherit2["NoRotationOrReflection"] = 2] = "NoRotationOrReflection";
+  Inherit2[Inherit2["NoScale"] = 3] = "NoScale";
+  Inherit2[Inherit2["NoScaleOrReflection"] = 4] = "NoScaleOrReflection";
+})(Inherit || (Inherit = {}));
+
+// node_modules/@esotericsoftware/spine-core/dist/PathConstraintData.js
+var PositionMode;
+(function(PositionMode2) {
+  PositionMode2[PositionMode2["Fixed"] = 0] = "Fixed";
+  PositionMode2[PositionMode2["Percent"] = 1] = "Percent";
+})(PositionMode || (PositionMode = {}));
+var SpacingMode;
+(function(SpacingMode2) {
+  SpacingMode2[SpacingMode2["Length"] = 0] = "Length";
+  SpacingMode2[SpacingMode2["Fixed"] = 1] = "Fixed";
+  SpacingMode2[SpacingMode2["Percent"] = 2] = "Percent";
+  SpacingMode2[SpacingMode2["Proportional"] = 3] = "Proportional";
+})(SpacingMode || (SpacingMode = {}));
+var RotateMode;
+(function(RotateMode2) {
+  RotateMode2[RotateMode2["Tangent"] = 0] = "Tangent";
+  RotateMode2[RotateMode2["Chain"] = 1] = "Chain";
+  RotateMode2[RotateMode2["ChainScale"] = 2] = "ChainScale";
+})(RotateMode || (RotateMode = {}));
+
+// node_modules/@esotericsoftware/spine-core/dist/Skeleton.js
+var Physics;
+(function(Physics2) {
+  Physics2[Physics2["none"] = 0] = "none";
+  Physics2[Physics2["reset"] = 1] = "reset";
+  Physics2[Physics2["update"] = 2] = "update";
+  Physics2[Physics2["pose"] = 3] = "pose";
+})(Physics || (Physics = {}));
+
+// node_modules/@esotericsoftware/spine-core/dist/SlotData.js
+var BlendMode2;
+(function(BlendMode3) {
+  BlendMode3[BlendMode3["Normal"] = 0] = "Normal";
+  BlendMode3[BlendMode3["Additive"] = 1] = "Additive";
+  BlendMode3[BlendMode3["Multiply"] = 2] = "Multiply";
+  BlendMode3[BlendMode3["Screen"] = 3] = "Screen";
+})(BlendMode2 || (BlendMode2 = {}));
+
+// node_modules/@esotericsoftware/spine-core/dist/SkeletonBinary.js
+var AttachmentType;
+(function(AttachmentType2) {
+  AttachmentType2[AttachmentType2["Region"] = 0] = "Region";
+  AttachmentType2[AttachmentType2["BoundingBox"] = 1] = "BoundingBox";
+  AttachmentType2[AttachmentType2["Mesh"] = 2] = "Mesh";
+  AttachmentType2[AttachmentType2["LinkedMesh"] = 3] = "LinkedMesh";
+  AttachmentType2[AttachmentType2["Path"] = 4] = "Path";
+  AttachmentType2[AttachmentType2["Point"] = 5] = "Point";
+  AttachmentType2[AttachmentType2["Clipping"] = 6] = "Clipping";
+})(AttachmentType || (AttachmentType = {}));
+
+// node_modules/@esotericsoftware/spine-core/dist/polyfills.js
+(() => {
+  if (typeof Math.fround === "undefined") {
+    Math.fround = /* @__PURE__ */ (function(array) {
+      return function(x) {
+        return array[0] = x, array[0];
+      };
+    })(new Float32Array(1));
+  }
+})();
+
+// src/types/GalaceanTypes.ts
 var GCContainer = class _GCContainer {
   entity;
   children = [];
@@ -41857,17 +43788,25 @@ var GCContainer = class _GCContainer {
     return this.entity.isActive;
   }
   set alpha(value) {
-    const renderers = this.entity.getComponentsIncludingChildren(SpriteRenderer3);
+    const renderers = [];
+    this.entity.getComponentsIncludeChildren(SpriteRenderer3, renderers);
     for (const renderer of renderers) {
-      if (renderer.material) {
-        renderer.material.baseColor = new Color3(1, 1, 1, value);
+      if (renderer.materialCount > 0) {
+        const material = renderer.getMaterial(0);
+        if (material) {
+          material.shaderData.setColor("u_baseColor", new Color4(1, 1, 1, value));
+        }
       }
     }
   }
   get alpha() {
-    const renderers = this.entity.getComponentsIncludingChildren(SpriteRenderer3);
-    if (renderers.length > 0 && renderers[0].material) {
-      return renderers[0].material.baseColor.a;
+    const renderers = [];
+    this.entity.getComponentsIncludeChildren(SpriteRenderer3, renderers);
+    if (renderers.length > 0 && renderers[0].materialCount > 0) {
+      const material = renderers[0].getMaterial(0);
+      if (material) {
+        return material.shaderData.getColor("u_baseColor").a;
+      }
     }
     return 1;
   }
@@ -41904,20 +43843,29 @@ var GCSprite = class extends GCContainer {
     return this.spriteRenderer?.sprite?.texture ?? null;
   }
   set tint(color) {
-    if (this.spriteRenderer && this.spriteRenderer.material) {
-      if (typeof color === "number") {
-        const r = (color >> 16 & 255) / 255;
-        const g = (color >> 8 & 255) / 255;
-        const b = (color & 255) / 255;
-        const a = this.spriteRenderer.material.baseColor.a;
-        this.spriteRenderer.material.baseColor = new Color3(r, g, b, a);
-      } else {
-        this.spriteRenderer.material.baseColor = color;
+    if (this.spriteRenderer && this.spriteRenderer.materialCount > 0) {
+      const material = this.spriteRenderer.getMaterial(0);
+      if (material) {
+        if (typeof color === "number") {
+          const r = (color >> 16 & 255) / 255;
+          const g = (color >> 8 & 255) / 255;
+          const b = (color & 255) / 255;
+          const a = material.shaderData.getColor("u_baseColor").a;
+          material.shaderData.setColor("u_baseColor", new Color4(r, g, b, a));
+        } else {
+          material.shaderData.setColor("u_baseColor", color);
+        }
       }
     }
   }
   get tint() {
-    return this.spriteRenderer?.material?.baseColor ?? new Color3(1, 1, 1, 1);
+    if (this.spriteRenderer && this.spriteRenderer.materialCount > 0) {
+      const material = this.spriteRenderer.getMaterial(0);
+      if (material) {
+        return material.shaderData.getColor("u_baseColor");
+      }
+    }
+    return new Color4(1, 1, 1, 1);
   }
   set width(value) {
     this._width = value;
@@ -41943,17 +43891,21 @@ var GCSprite = class extends GCContainer {
   }
   set anchor(value) {
     if (this.spriteRenderer?.sprite) {
-      this.spriteRenderer.sprite.pivot = new Vector23(value.x, value.y);
+      this.spriteRenderer.sprite.pivot = new Vector24(value.x, value.y);
     }
   }
   get anchor() {
-    const pivot = this.spriteRenderer?.sprite?.pivot ?? new Vector23(0.5, 0.5);
+    const pivot = this.spriteRenderer?.sprite?.pivot ?? new Vector24(0.5, 0.5);
     return { x: pivot.x, y: pivot.y };
   }
   set interactive(value) {
+    this._interactive = value;
     if (value) {
       this.entity.layer = 1;
     }
+  }
+  get interactive() {
+    return this._interactive;
   }
   set cursor(value) {
   }
@@ -41969,15 +43921,6 @@ var GCSprite = class extends GCContainer {
   }
   get buttonMode() {
     return this._buttonMode;
-  }
-  set interactive(value) {
-    this._interactive = value;
-    if (value) {
-      this.entity.layer = 1;
-    }
-  }
-  get interactive() {
-    return this._interactive;
   }
   on(event, callback) {
     if (!this._listeners.has(event)) {
@@ -42080,17 +44023,18 @@ var GCText = class extends GCContainer {
     }
     this.textRenderer.text = this._text;
     this.textRenderer.fontSize = this._fontSize;
-    this.textRenderer.fontFamily = this._fontFamily;
+    if (this._fontFamily && this.textRenderer.font) {
+    }
     this.textRenderer.color = fillValue;
     switch (this._align) {
       case "left":
-        this.textRenderer.horizontalAlign = 0;
+        this.textRenderer.horizontalAlignment = 0;
         break;
       case "center":
-        this.textRenderer.horizontalAlign = 1;
+        this.textRenderer.horizontalAlignment = 1;
         break;
       case "right":
-        this.textRenderer.horizontalAlign = 2;
+        this.textRenderer.horizontalAlignment = 2;
         break;
     }
   }
@@ -42115,7 +44059,6 @@ var GCText = class extends GCContainer {
   set fontFamily(value) {
     this._fontFamily = value;
     if (this.textRenderer) {
-      this.textRenderer.fontFamily = value;
     }
   }
   get fontFamily() {
@@ -42141,7 +44084,6 @@ var GCText = class extends GCContainer {
   }
   set anchor(value) {
     this._anchor = value;
-    this.entity.transform.pivot = new Vector33(value.x, value.y, 0);
   }
   off(event, callback) {
     const listeners = this._listeners.get(event);
@@ -42173,7 +44115,7 @@ var GCGraphics = class extends GCContainer {
     this.colors = [];
     const meshRenderer = this.entity.getComponent(SpriteRenderer3);
     if (meshRenderer) {
-      this.entity.removeComponent(SpriteRenderer3);
+      meshRenderer.enabled = false;
     }
   }
   beginFill(color, alpha) {
@@ -42547,7 +44489,7 @@ var Renderer2 = class {
 };
 
 // src/rendering/UIFactory.ts
-import { Color as Color5 } from "@galacean/engine";
+import { Color as Color6 } from "@galacean/engine";
 var UIFactory = class {
   /**
    * Create a container with common props.
@@ -42642,7 +44584,7 @@ var UIFactory = class {
       obj.scale.y = options.scale.y;
     }
     if ("tint" in obj && options?.tint !== void 0) {
-      obj.tint = new Color5(
+      obj.tint = new Color6(
         (options.tint >> 16 & 255) / 255,
         (options.tint >> 8 & 255) / 255,
         (options.tint & 255) / 255,
