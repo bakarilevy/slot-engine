@@ -20,7 +20,7 @@ export class PaylineRenderer {
   private scale: number = 1;
 
   // Animation tracking
-  private activeTweens: GCTween[] = [];
+  private activeTweens: Array<{ kill: () => void }> = [];
   private isVisible: boolean = false;
 
   constructor(
@@ -88,7 +88,7 @@ export class PaylineRenderer {
    */
   setScale(scale: number): void {
     this.scale = scale;
-    this.container.scale.set(scale, scale);
+    this.container.setScale(scale, scale);
   }
 
   /**
@@ -160,27 +160,31 @@ export class PaylineRenderer {
         );
         glowGraphics.alpha = 0;
         // Add to timeline: fade in glow first
-        tl.add(GCTween.to(glowGraphics, {
+        const glowTween = GCTween.to(glowGraphics, {
           alpha: this.config.glowAlpha,
+        }, {
           duration: drawDuration * 0.3,
           ease: ease,
-        }), i * 0.1);
+        });
+        tl.add(glowTween, i * 0.1);
         // Store for cleanup
-        this.activeTweens.push(tl.getTweens()[tl.getTweens().length - 1]);
+        this.activeTweens.push(glowTween);
         // We'll store the graphics for cleanup
         (lineGraphics as any)._glow = glowGraphics;
       }
 
       // Fade in the line
       lineGraphics.alpha = 0;
-      tl.add(GCTween.to(lineGraphics, {
+      const lineTween = GCTween.to(lineGraphics, {
         alpha: alpha,
+      }, {
         duration: drawDuration * 0.7,
         ease: ease,
-      }), i * 0.1 + drawDuration * 0.2);
+      });
+      tl.add(lineTween, i * 0.1 + drawDuration * 0.2);
 
       // Store for cleanup
-      this.activeTweens.push(tl.getTweens()[tl.getTweens().length - 1]);
+      this.activeTweens.push(lineTween);
       (lineGraphics as any)._lineData = { winLine, points };
 
       // Add a small dot at each position (optional)
@@ -190,13 +194,15 @@ export class PaylineRenderer {
         dot.drawCircle(pt.x, pt.y, 6 * this.scale);
         dot.endFill();
         dot.alpha = 0;
-        tl.add(GCTween.to(dot, {
+        const dotTween = GCTween.to(dot, {
           alpha: 0.8,
+        }, {
           duration: drawDuration * 0.4,
           ease: ease,
-        }), i * 0.1 + drawDuration * 0.3);
+        });
+        tl.add(dotTween, i * 0.1 + drawDuration * 0.3);
         (dot as any)._lineData = { winLine };
-        this.activeTweens.push(tl.getTweens()[tl.getTweens().length - 1]);
+        this.activeTweens.push(dotTween);
       }
     }
     
@@ -214,7 +220,7 @@ export class PaylineRenderer {
     this.activeTweens = [];
 
     // Remove all children except the main graphics (keep it for reuse)
-    const children = this.container.children.slice();
+    const children = (this.container as any).getChildren?.() || [];
     for (const child of children) {
       if (child === this.graphics) continue;
       (child as any).destroy?.();
@@ -276,9 +282,9 @@ export class PaylineRenderer {
 
   private startPulse(): void {
     // Simple pulse: alternate alpha of all line graphics
-    const lineChildren = this.container.children.filter(
-      (child) => child instanceof GCGraphics && child !== this.graphics
-    );
+    const lineChildren = (this.container as any).getChildren?.().filter(
+      (child: any) => child instanceof GCGraphics && child !== this.graphics
+    ) || [];
     if (lineChildren.length === 0) return;
 
     const pulseDuration = this.config.pulseDuration;
@@ -289,21 +295,14 @@ export class PaylineRenderer {
         // If hidden, stop pulsing
         return;
       }
-      GCTween.to(lineChildren, {
-        alpha: (idx, target) => {
-          // Different delay per line
-          const base = target.alpha || 1;
-          return base * 0.6;
-        },
+      GCTween.to(lineChildren.map((c: any) => c.alpha), {
+        alpha: 0.6,
         duration: pulseDuration * 0.5,
         ease: 'sine.inOut',
         onComplete: () => {
           if (!this.isVisible) return;
-          GCTween.to(lineChildren, {
-            alpha: (idx, target) => {
-              const base = target.alpha || 0.6;
-              return base / 0.6 * 1.0;
-            },
+          GCTween.to(lineChildren.map((c: any) => c.alpha), {
+            alpha: 1.0,
             duration: pulseDuration * 0.5,
             ease: 'sine.inOut',
             onComplete: pulse,
