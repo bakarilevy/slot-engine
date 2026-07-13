@@ -96,7 +96,11 @@ export class GameController {
     this.bonusController = new BonusController(this.state, this.events);
 
     // Get the Galacean stage container
-    const stage = this.renderer.getStage();
+    const rootEntity = this.renderer.getRootEntity();
+    if (!rootEntity) {
+      throw new Error('Renderer root entity not initialized');
+    }
+    const stage = new GCContainer(rootEntity, 'Stage');
 
     // Main UI container (all UI elements go here)
     this.mainUIContainer = new GCContainer();

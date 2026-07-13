@@ -20,7 +20,7 @@ node_modules/
 # Environment
 .env
 .env.local
-.env.*
+*.env.*
 
 # Python
 __pycache__/
@@ -31,27 +31,13 @@ __pycache__/
 # Compiled files
 *.o
 *.obj
+*.out
+*.exe
+*.dll
 *.so
 *.a
-*.dll
-*.exe
 
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# Gradle
-.gradle/
-target/
-
-# MyPy
-.mypy_cache/
-
-# PyTest
-.pytest_cache/
-
-# Compressed files
+# Archives
 *.zip
 *.gz
 *.tar
@@ -70,4 +56,19 @@ target/
 *.Z
 *.lz
 *.lzo
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Cache
+.mypy_cache/
+.pytest_cache/
+.gradle/
+target/
+
+# System
+.DS_Store
+Thumbs.db
 ```
