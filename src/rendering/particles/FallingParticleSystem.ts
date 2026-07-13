@@ -120,7 +120,7 @@ export class FallingParticleSystem extends ParticleSystem {
     p.sprite.visible = true;
     p.sprite.x = p.x;
     p.sprite.y = p.y;
-    p.sprite.scale = { x: p.scale, y: p.scale, z: 1 };
+    p.sprite.scale.set(p.scale, p.scale, 1);
     p.sprite.alpha = p.alpha;
     p.sprite.entity.transform.rotation = new Vector3(0, 0, p.rotation);
     p.sprite.tint = colors[randomInt(0, colors.length)];

@@ -82,6 +82,7 @@ export class LoadingScreen {
     return new Promise((resolve) => {
       GCTween.to(this.container, {
         alpha: 0,
+      }, {
         duration: 0.5,
         ease: 'power2.out',
         onComplete: () => {
